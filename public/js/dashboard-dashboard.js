@@ -165,9 +165,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
-// Sidebar open/close logic
 const navbar = document.getElementById('vertical-navbar');
 const toggleBtn = document.getElementById('navbar-toggle');
+const closeBtn = document.getElementById('close-navbar-mobile');
 const body = document.body;
 let isOpen = false;
 
@@ -177,12 +177,26 @@ function setNavbarState(open) {
     navbar.classList.add('open');
     navbar.classList.remove('closed');
     body.classList.add('navbar-open');
+    toggleBtn.style.display = 'none';
+    closeBtn.style.display = 'block';
   } else {
     navbar.classList.remove('open');
     navbar.classList.add('closed');
     body.classList.remove('navbar-open');
+    toggleBtn.style.display = 'block';
+    closeBtn.style.display = 'none';
   }
 }
+
+toggleBtn.addEventListener('click', () => setNavbarState(true));
+closeBtn.addEventListener('click', () => setNavbarState(false));
+
+// Optionally, close when clicking outside the navbar on mobile
+document.addEventListener('click', (e) => {
+  if (isOpen && !navbar.contains(e.target) && e.target !== toggleBtn) {
+    setNavbarState(false);
+  }
+});
 
 // Initial state
 body.classList.add('with-navbar');
@@ -218,3 +232,4 @@ themeToggle.addEventListener('click', () => {
   darkMode = !darkMode;
   setTheme(darkMode);
 });
+
