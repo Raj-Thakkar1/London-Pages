@@ -488,7 +488,7 @@ footer {
 .alert-success {
   background-color: var(--success-light);
   border-left-color: var(--success);
-  color: var(--success-dark);
+  color: var (--success-dark);
 }
 
 .alert-danger {
@@ -1228,4 +1228,93 @@ html.dark {
   .ai-proofread-btn { grid-column: 2 / 3; grid-row: 1 / 2; }
   .human-proofread-btn { grid-column: 2 / 3; grid-row: 2 / 3; }
   .video-editor-btn { grid-column: 2 / 3; grid-row: 3 / 4; margin-bottom: 0; }
+}
+
+#hamburger-img{
+  width:40px;
+  height:40px;
+  object-fit:contain;
+}
+
+/* Uploaded Videos Section - dark mode fix */
+.dark #user-videos-list,
+.dark #user-videos-list h3,
+.dark #user-videos-list .card,
+.dark #user-videos-list .video-item,
+.dark #user-videos-list .video-item-title,
+.dark #user-videos-list .video-item-meta,
+.dark #user-videos-list .video-item-actions,
+.dark #user-videos-list #no-videos-message {
+  color: #fff !important;
+}
+
+.dark #user-videos-list .video-item-meta {
+  color: var(--gray-300) !important;
+}
+
+.dark #user-videos-list .video-item {
+  background-color: var(--gray-800) !important;
+  border-color: var(--gray-700) !important;
+}
+
+.dark #user-videos-list .card {
+  background-color: var(--gray-800) !important;
+  border-color: var(--gray-700) !important;
+}
+
+/* Upload Modal - dark mode improvements */
+.dark .modal-upload-content {
+  background: #232334 !important;
+  color: #fff !important;
+}
+.dark .modal-upload-content input,
+.dark .modal-upload-content select,
+.dark .modal-upload-content textarea {
+  background-color: var(--gray-800) !important;
+  color: #fff !important;
+  border-color: var(--gray-700) !important;
+}
+.dark .modal-upload-content input::placeholder,
+.dark .modal-upload-content textarea::placeholder {
+  color: var(--gray-400) !important;
+}
+.dark .modal-upload-content label {
+  color: var(--gray-300) !important;
+}
+.dark .modal-upload-content .button,
+.dark .modal-upload-content button {
+  background-color: var(--primary-dark) !important;
+  color: #fff !important;
+}
+.dark .modal-upload-content .button[disabled],
+.dark .modal-upload-content button[disabled] {
+  background-color: var(--gray-700) !important;
+  color: var(--gray-400) !important;
+}
+.dark .modal-upload-content .progress-bar {
+  background-color: var(--gray-700) !important;
+}
+.dark .modal-upload-content .progress-bar-fill {
+  background-color: var(--primary-light) !important;
+}
+
+/* Upload Modal - general improvements for both themes */
+.modal-upload-content input,
+.modal-upload-content select,
+.modal-upload-content textarea {
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.2rem;
+}
+.modal-upload-content label {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.modal-upload-content .progress-bar {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+.modal-upload-content .progress-bar-fill {
+  height: 8px;
+  border-radius: 4px;
 }

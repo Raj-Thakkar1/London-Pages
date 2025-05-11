@@ -15,11 +15,21 @@
 </head>
 
 <body>
-  <!-- Vertical Navbar Start -->
-  <nav id="vertical-navbar" class="vertical-navbar closed">
-    <div class="navbar-toggle" id="navbar-toggle" title="Expand/collapse sidebar">
+  <!-- Hamburger for mobile, sidebar toggle for desktop -->
+  <div class="navbar-toggle-mobile" id="navbar-toggle-mobile" title="Open navigation" style="display:none;">
+    <button class="navbar-mobile-btn" aria-label="Open navigation" aria-expanded="false" aria-controls="vertical-navbar">
       <i class="fas fa-bars"></i>
-    </div>
+    </button>
+  </div>
+  <div class="navbar-toggle-desktop" id="navbar-toggle-desktop" title="Expand/collapse sidebar">
+    <button id="close-navbar-mobile" style="display:none;position:absolute;top:18px;right:18px;background:none;border:none;color:#fff;font-size:2rem;z-index:2101;">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <nav id="vertical-navbar" class="vertical-navbar closed">
+    <button id="close-navbar-mobile" style="display:none;position:absolute;top:18px;right:18px;background:none;border:none;color:#fff;font-size:2rem;z-index:2101;">
+      <i class="fas fa-times"></i>
+    </button>
     <div class="navbar-links">
       <a href="/dashboard/creator-dashboard" class="navbar-link" title="Dashboard">
         <i class="fas fa-home"></i>
@@ -196,7 +206,7 @@
   <script src="/js/theme.js"></script>
   <script src="/js/dashboard-dashboard.js" type="module"></script>
   <script src="/js/dashboard-upload-videos.js" type="module"></script>
-  <script src="/js/dashboard-upload-modal.js"></script>
+  <script src="/js/dashboard-upload-modal.js"></script>  
 </body>
 
 </html>

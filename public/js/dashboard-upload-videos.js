@@ -55,6 +55,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const uploadStatus = document.getElementById('uploadStatus');
   const progressFill = document.querySelector('.progress-bar-fill');
 
+  // Hide upload status/progress bar initially
+  if (uploadStatus) {
+    uploadStatus.style.display = 'none';
+  }
+  if (progressFill) {
+    progressFill.style.width = '0%';
+  }
+
   // Helper to get cookie value by name
   function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -123,18 +131,32 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
           const error = response.message || xhr.responseText || 'Upload failed';
           showNotification('error', 'Upload failed: ' + error);
+          uploadStatus.style.display = 'none'; // Hide progress bar on error
+          progressFill.style.width = '0%';
           window.location.href = '/dashboard/creator-upload-error?message=' + encodeURIComponent(error);
         }
       };
 
       xhr.onerror = function() {
         showNotification('error', 'Network error occurred during upload.');
+        uploadStatus.style.display = 'none'; // Hide progress bar on error
+        progressFill.style.width = '0%';
         window.location.href = '/dashboard/creator-upload-error?message=' + encodeURIComponent('Network error occurred');
       };
 
       xhr.send(formData);
     });
   }
+
+  // Hide progress bar if form is reset or closed
+  const closeBtn = document.getElementById('closeUploadModal');
+  const cancelBtn = document.getElementById('cancelUploadModal');
+  function hideUploadStatus() {
+    if (uploadStatus) uploadStatus.style.display = 'none';
+    if (progressFill) progressFill.style.width = '0%';
+  }
+  if (closeBtn) closeBtn.addEventListener('click', hideUploadStatus);
+  if (cancelBtn) cancelBtn.addEventListener('click', hideUploadStatus);
 
   async function loadTranslationMinutes() {
     try {

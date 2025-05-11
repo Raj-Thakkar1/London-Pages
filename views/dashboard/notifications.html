@@ -8,36 +8,44 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="/js/theme.js"></script>
   <script src="/js/dashboard-notifications.js" type="module"></script>
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/dashboard-upload-modal.css">
+  <link rel="stylesheet" href="/css/dashboard-videos-translated.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/custom-responsive.css">
 </head>
 <body>
-  <header>
-    <div class="container flex items-center justify-between">
-      <div id="hamburger" class="cursor-pointer">
-        <i class="fas fa-bars"></i>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="/dashboard/creator-videos-submitted"><i class="fas fa-film mr-2"></i>
-              Videos Submitted</a></li>
-          <li><a href="/dashboard/creator-videos-translated"><i class="fas fa-language mr-2"></i>
-              Videos Translated</a></li>
-          <li><a href="/dashboard/creator-view-transcripts"><i class="fas fa-file-alt mr-2"></i>
-              View Transcripts</a></li>
-          <li><a href="/dashboard/creator-upload-videos"><i class="fas fa-upload mr-2"></i>
-              Upload Videos</a></li>
-          <li><a href="/dashboard/creator-profile"
-              class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"><i
-                class="fas fa-user mr-2"></i> Profile</a></li>
-          <li>
-            <div id="theme-toggle" class="cursor-pointer hidden">
-              <i class="fas fa-moon text-gray-600 dark:text-gray-400"></i>
-            </div>
-          </li>
-        </ul>
-      </nav>
+  <!-- Vertical Navbar Start -->
+  <nav id="vertical-navbar" class="vertical-navbar closed">
+    <div class="navbar-toggle" id="navbar-toggle" title="Expand/collapse sidebar">
+      <img id="hamburger-img" src="/assets/images/toggle button.png" alt="Menu">
     </div>
-  </header>
-
+    <div class="navbar-links">
+      <a href="/dashboard/creator-dashboard" class="navbar-link" title="Dashboard">
+        <i class="fas fa-home"></i>
+        <span class="navbar-text">Dashboard</span>
+      </a>
+      <a href="#" class="navbar-link" title="Language Suggestor">
+        <i class="fas fa-language"></i>
+        <span class="navbar-text">Languages</span>
+      </a>
+    </div>
+    <div class="navbar-links navbar-links-bottom">
+      <a href="/dashboard/notifications" class="navbar-link" title="Notifications">
+        <i class="fas fa-bell"></i>
+        <span class="navbar-text">Notifications</span>
+      </a>
+      <a id="theme-toggle" href="#" class="navbar-link" title="Toggle dark/light mode" type="button">
+        <i class="fas fa-moon" id="theme-icon"></i>
+        <span class="navbar-text">Theme</span>
+      </a>
+      <a href="/dashboard/creator-profile" class="navbar-link" title="Profile">
+        <i class="fas fa-user"></i>
+        <span class="navbar-text">Profile</span>
+      </a>
+    </div>
+  </nav>
+  <!-- Vertical Navbar End -->
   <main>
     <div class="container">
       <div class="card">

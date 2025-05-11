@@ -4,44 +4,45 @@
   <meta charset="UTF-8">
   <title>Creator Profile</title>
   <link rel="stylesheet" href="/css/style.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 2rem;
-      background-color: #f4f4f4;
-    }
-    .container {
-      max-width: 600px;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-    }
-    label {
-      margin-top: 1rem;
-      font-weight: bold;
-    }
-    input {
-      margin-top: 0.5rem;
-      padding: 8px;
-      border: 1px solid #ccc;
-      background-color: #f9f9f9;
-    }
-    .nav-links {
-      margin-top: 1rem;
-    }
-    .nav-links a {
-      margin-right: 1rem;
-      text-decoration: none;
-      color: #007bff;
-    }
-  </style>
+  <link rel="stylesheet" href="/css/profile-style.css">
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/dashboard-upload-modal.css">
+  <link rel="stylesheet" href="/css/dashboard-videos-translated.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/custom-responsive.css">
 </head>
 <body>
+  <!-- Vertical Navbar Start -->
+  <nav id="vertical-navbar" class="vertical-navbar closed">
+    <div class="navbar-toggle" id="navbar-toggle" title="Expand/collapse sidebar">
+      <img id="hamburger-img" src="/assets/images/toggle button.png" alt="Menu">
+    </div>
+    <div class="navbar-links">
+      <a href="/dashboard/creator-dashboard" class="navbar-link" title="Dashboard">
+        <i class="fas fa-home"></i>
+        <span class="navbar-text">Dashboard</span>
+      </a>
+      <a href="#" class="navbar-link" title="Language Suggestor">
+        <i class="fas fa-language"></i>
+        <span class="navbar-text">Languages</span>
+      </a>
+    </div>
+    <div class="navbar-links navbar-links-bottom">
+      <a href="/dashboard/notifications" class="navbar-link" title="Notifications">
+        <i class="fas fa-bell"></i>
+        <span class="navbar-text">Notifications</span>
+      </a>
+      <a id="theme-toggle" href="#" class="navbar-link" title="Toggle dark/light mode" type="button">
+        <i class="fas fa-moon" id="theme-icon"></i>
+        <span class="navbar-text">Theme</span>
+      </a>
+      <a href="/dashboard/creator-profile" class="navbar-link" title="Profile">
+        <i class="fas fa-user"></i>
+        <span class="navbar-text">Profile</span>
+      </a>
+    </div>
+  </nav>
+  <!-- Vertical Navbar End -->
   <div class="container">
     <h1>Creator Profile</h1>
     <form>

@@ -48,6 +48,73 @@
   overflow-y: auto;
 }
 
+/* Upload Modal - dark mode improvements */
+.dark .modal-upload-content {
+  background: #232334 !important;
+  color: #fff !important;
+}
+
+.dark .modal-upload-content input,
+.dark .modal-upload-content select,
+.dark .modal-upload-content textarea {
+  background-color: #181828 !important;
+  color: #fff !important;
+  border-color: #35355a !important;
+}
+
+.dark .modal-upload-content input::placeholder,
+.dark .modal-upload-content textarea::placeholder {
+  color: #b3b3cc !important;
+}
+
+.dark .modal-upload-content label {
+  color: #e0e0ff !important;
+}
+
+.dark .modal-upload-content .button,
+.dark .modal-upload-content button {
+  background-color: #4f46e5 !important;
+  color: #fff !important;
+}
+
+.dark .modal-upload-content .button[disabled],
+.dark .modal-upload-content button[disabled] {
+  background-color: #35355a !important;
+  color: #b3b3cc !important;
+}
+
+.dark .modal-upload-content .progress-bar {
+  background-color: #35355a !important;
+}
+
+.dark .modal-upload-content .progress-bar-fill {
+  background-color: #818cf8 !important;
+}
+
+/* Upload Modal - general improvements for both themes */
+.modal-upload-content input,
+.modal-upload-content select,
+.modal-upload-content textarea {
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.modal-upload-content label {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.modal-upload-content .progress-bar {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-upload-content .progress-bar-fill {
+  height: 8px;
+  border-radius: 4px;
+}
+
 .vertical-navbar {
   position: fixed;
   top: 0;
@@ -223,4 +290,74 @@ body.with-navbar.navbar-open {
 .vertical-navbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+@media (max-width: 770px) {
+  .vertical-navbar.mobile-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 210px;
+    max-width: 80vw;
+    background: #2d2350;
+    z-index: 2000;
+    box-shadow: 4px 0 24px rgba(44, 34, 80, 0.12);
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(.4, 0, .2, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .vertical-navbar.mobile-navbar[style*="translateX(0)"] {
+    transform: translateX(0) !important;
+  }
+
+  .navbar-toggle-mobile {
+    display: block !important;
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 2100;
+  }
+
+  .navbar-mobile-btn {
+    background: #2d2350;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 1.5rem;
+    box-shadow: 0 2px 8px rgba(44, 34, 80, 0.08);
+    cursor: pointer;
+  }
+
+  body.with-navbar {
+    margin-left: 0 !important;
+  }
+}
+
+@media (max-width: 770px) {
+  .navbar-toggle-desktop {
+    display: none !important;
+  }
+
+  .navbar-toggle-mobile {
+    display: block !important;
+  }
+}
+
+@media (min-width: 771px) {
+  .navbar-toggle-desktop {
+    display: block !important;
+  }
+
+  .navbar-toggle-mobile {
+    display: none !important;
+  }
+
+  #close-navbar-mobile {
+    display: none !important;
+  }
 }

@@ -159,9 +159,11 @@ window.onload = function () {
 document.addEventListener("DOMContentLoaded", function () {
   const hamburger = document.getElementById("hamburger");
   const navMenu = document.querySelector("nav ul");
-  hamburger.addEventListener("click", function () {
-    navMenu.classList.toggle("active");
-  });
+  if (hamburger && navMenu) {
+    hamburger.addEventListener("click", function () {
+      navMenu.classList.toggle("active");
+    });
+  }
 });
 // Sidebar open/close logic
 const navbar = document.getElementById('vertical-navbar');

@@ -1,0 +1,40 @@
+    body {
+        font-family: Arial, sans-serif;
+        margin: 2rem;
+        background-color: #f4f4f4;
+    }
+
+    .container {
+        max-width: 600px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        margin-top: 1rem;
+        font-weight: bold;
+    }
+
+    input {
+        margin-top: 0.5rem;
+        padding: 8px;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+    }
+
+    .nav-links {
+        margin-top: 1rem;
+    }
+
+    .nav-links a {
+        margin-right: 1rem;
+        text-decoration: none;
+        color: #007bff;
+    }
