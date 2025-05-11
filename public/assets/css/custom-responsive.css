@@ -1,0 +1,19 @@
+@media (max-width: 600px) {
+  .actions-grid-mobile {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto auto !important;
+    gap: 0.5rem !important;
+  }
+  .custom-responsive-btn-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: repeat(3, auto) !important;
+    gap: 0.5rem !important;
+  }
+  .custom-responsive-btn {
+    font-size: 1rem !important;
+    padding: 0.5rem 0.75rem !important;
+    border-radius: 0.5rem !important;
+  }
+}

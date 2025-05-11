@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Error | Video Translation Platform</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="/js/theme.js"></script>
+  <script src="/js/dashboard-upload-error.js" type="module"></script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen">
+  <header class="bg-white dark:bg-gray-800 shadow-md">
+    <div class="container mx-auto px-4 py-3">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <a href="/dashboard/creator-dashboard" class="text-blue-600 dark:text-blue-400">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-lg mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+      <div class="p-8 text-center">
+        <div class="rounded-full bg-red-100 dark:bg-red-900 h-20 w-20 flex items-center justify-center mx-auto mb-6">
+          <i class="fas fa-exclamation-triangle text-red-600 dark:text-red-400 text-3xl"></i>
+        </div>
+        <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Upload Error</h1>
+        <div class="p-4 bg-red-50 dark:bg-red-900/30 rounded-lg mb-6">
+          <p id="error-message" class="text-red-700 dark:text-red-400">An error occurred while uploading the file.</p>
+        </div>
+        <div class="flex justify-center">
+          <a href="/dashboard/creator-dashboard" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md transition duration-300 transform hover:scale-105 inline-flex items-center gap-2">
+            <i class="fas fa-home"></i> Return to Dashboard
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-white dark:bg-gray-800 mt-auto">
+    <div class="container mx-auto px-4 py-4 text-center text-gray-600 dark:text-gray-300 text-sm">
+      <p>&copy; 2025 London Pages | Video Translation Platform</p>
+    </div>
+  </footer>
+</body>
+</html>

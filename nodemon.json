@@ -1,0 +1,20 @@
+{
+  "verbose": true,
+  "ignore": ["*.test.js", "uploads/*", "logs/*"],
+  "execMap": {
+    "js": "node --max-old-space-size=4096 --gc-interval=100 --optimize-for-size"
+  },
+  "env": {
+    "NODE_ENV": "development",
+    "UV_THREADPOOL_SIZE": "4"
+  },
+  "events": {
+    "restart": "echo \"App restarted due to changes\""
+  },
+  "watch": [
+    "routes/",
+    "config/",
+    "server.js"
+  ],
+  "ext": "js,json"
+}

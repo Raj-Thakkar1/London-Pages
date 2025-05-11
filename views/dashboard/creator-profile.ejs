@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Creator Profile</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 600px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    input {
+      margin-top: 0.5rem;
+      padding: 8px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+    }
+    .nav-links {
+      margin-top: 1rem;
+    }
+    .nav-links a {
+      margin-right: 1rem;
+      text-decoration: none;
+      color: #007bff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Creator Profile</h1>
+    <form>
+      <label for="name">Name:</label>
+      <input type="text" id="name" value="<%= creator.name %>" readonly>
+      
+      <label for="email">Email:</label>
+      <input type="email" id="email" value="<%= creator.email %>" readonly>
+      
+      <label for="createdAt">Member Since:</label>
+      <input type="text" id="createdAt" value="<%= creator.createdAt ? new Date(creator.createdAt.seconds * 1000).toLocaleDateString() : 'N/A' %>" readonly>
+      
+      <label for="translationMinutes">Translation Time Left:</label>
+      <input type="text" id="translationMinutes" value="<%= creator.translationMinutes ? `${creator.translationMinutes}m ${creator.translationSeconds || 0}s` : 'N/A' %>" readonly>
+    </form>
+    
+    <div class="nav-links">
+      <a href="/dashboard/creator-buy-minutes">Buy More Minutes</a>
+      <a href="/dashboard/notifications">Notifications</a>
+    </div>
+  </div>
+</body>
+</html>

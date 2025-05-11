@@ -1,0 +1,11 @@
+# .env files
+.env
+.env.*
+
+# Firebase and Google service account keys
+config/firebaseServiceAccountKey.json
+config/googleDriveServiceAccountKey.json
+
+# Ignore git directories
+.git/
+node_modules

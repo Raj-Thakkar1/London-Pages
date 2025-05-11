@@ -1,0 +1,214 @@
+/* Modern Landing Page Styles */
+:root {
+  --primary-color: #2D3047;
+  --secondary-color: #419D78;
+  --accent-color: #E0A458;
+  --text-light: #FCFCFC;
+  --text-dark: #2D3047;
+  --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  --gradient-accent: linear-gradient(135deg, var(--accent-color), #E76F51);
+}
+
+/* Custom Cursor */
+body {
+  cursor: default;
+  background: var(--text-light);
+  color: var(--text-dark);
+}
+
+.custom-cursor {
+  cursor: none;
+}
+
+.cursor {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--primary-color);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 9999;
+}
+
+/* Modern Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Manrope', sans-serif;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  background: var(--gradient-primary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Bento Grid */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.bento-item {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.bento-item:hover {
+  transform: translateY(-5px);
+}
+
+/* 3D Objects Animation */
+.model-container {
+  perspective: 1000px;
+}
+
+.rotating-model {
+  transform-style: preserve-3d;
+  animation: rotate 20s infinite linear;
+}
+
+@keyframes rotate {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+/* Micro Interactions */
+.btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: -100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+
+.btn:hover::after {
+  left: 100%;
+}
+
+/* Cards Spiral Layout */
+.spiral-cards {
+  position: relative;
+  height: 600px;
+}
+
+.spiral-card {
+  position: absolute;
+  transform-origin: center;
+  transition: all 0.5s ease;
+}
+
+/* Dark/Light Mode */
+[data-theme="dark"] {
+  --text-light: #2D3047;
+  --text-dark: #FCFCFC;
+  background: var(--text-light);
+  color: var(--text-dark);
+}
+
+/* Hover Effects */
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* Negative Space Utilization */
+.section {
+  padding: 8rem 0;
+  margin: 4rem 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Spacing Rules */
+.text-content {
+  max-width: 65ch;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+h1 + p {
+  margin-top: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .section {
+    padding: 4rem 0;
+  }
+}
+
+/* Gradient Backgrounds */
+.gradient-bg {
+  background: var(--gradient-primary);
+  color: var(--text-light);
+}
+
+.gradient-text {
+  background: var(--gradient-accent);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--text-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+/* Material Design Elevation */
+.elevation {
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.elevation:hover {
+  box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+}

@@ -1,0 +1,59 @@
+Step 1: Remove Secrets from Version Control
+
+AI Prompt:
+
+"Inspect the repository to locate any committed .env files and the .git directory in the deployment folder. Remove these artifacts, update .gitignore to exclude .env and .git/. Document the process in a SECURITY.md file."
+
+Step 2: Implement Rate Limiting on Critical Endpoints
+
+AI Prompt:
+
+"Add express-rate-limit middleware to the Express app. Configure rate limits for authentication routes (/login, /register), video upload endpoints (/api/upload), and payment webhook routes. Ensure limits are parameterized via environment variables and include custom error messages when thresholds are exceeded."
+
+Step 3: Harden HTTP Security Headers
+
+AI Prompt:
+
+"Integrate the helmet package into the Express middleware stack. Define a strict Content Security Policy that allows resources only from your domain and trusted CDNs. Enable X-Frame-Options: DENY, X-Content-Type-Options: nosniff, Referrer-Policy: no-referrer, and any other recommended headers. Provide tests to verify header presence."
+
+Step 4: Secure Session Management
+
+AI Prompt:
+
+"Replace the default express-session memory store with a Redis-backed session store. Generate a strong SESSION_SECRET via a secure random generator and load it from a secrets manager. Configure session cookies with httpOnly, secure, and sameSite flags. Create automated tests to validate session expiration and regeneration."
+
+Step 5: Enforce CSRF Protection Across All Routes
+
+AI Prompt:
+
+"Audit all state-changing Express routes and apply the doubleCsrf middleware globally or selectively on POST, PUT, DELETE, and PATCH endpoints. Automatically inject CSRF tokens into EJS forms and AJAX requests. Write integration tests to ensure missing or invalid tokens result in 403 errors."
+
+Step 6: Add Input Validation and Sanitization
+
+AI Prompt:
+
+"Integrate express-validator into controller layers. Define validation and sanitization schemas for all user inputs: email fields, file names, Razorpay payloads, and query parameters. Implement centralized error handling to return standardized validation error responses."
+
+Step 7: Secure File Uploads with Type Checking and Malware Scanning
+
+AI Prompt:
+
+"Extend the Multer configuration to accept only video MIME types (video/mp4, video/webm) and enforce maximum file size limits. Integrate an antivirus scanning library (e.g., clamav.js) to inspect uploads before processing. If malware is detected, reject the upload with a security error and log the incident."
+
+Step 8: Throttle and Sanitize FFmpeg Jobs
+
+AI Prompt:
+
+"Implement a job queue (e.g., Bull or Bee-Queue) to process FFmpeg conversions sequentially or with a controlled concurrency limit. Sanitize all FFmpeg CLI arguments to prevent injection. Monitor queue health and add fallback error handling for failed conversions."
+
+Step 9: Audit Dependencies and Enforce Version Pinning
+
+AI Prompt:
+
+"Run npm audit --json and generate a report of all vulnerabilities. Automatically upgrade fixable packages, and pin unpatched or major dependencies to known safe versions in package.json. Remove unused placeholder modules (e.g., fs stub). Add npm audit to CI checks."
+
+Step 10: Enhance Logging and Error Response Handling
+
+AI Prompt:
+
+"Replace console.log statements with structured logging using winston or pino. Configure log levels, JSON formatting, and external log storage (e.g., ELK or Cloud Logging). Sanitize error stack traces before sending HTTP responses and implement a global error-handling middleware."

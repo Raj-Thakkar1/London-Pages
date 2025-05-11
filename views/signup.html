@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - London Pages</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/auth.css">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Favicon -->
+  <link rel="icon" href="assets/images/London_Pages_official.png" type="image/x-icon">
+</head>
+
+<body>
+  <div class="auth-container">
+    <!-- Split screen layout -->
+    <div class="auth-split-screen">
+      <!-- Left side - image -->
+      <div class="auth-image">
+        <div class="overlay"></div>
+        <div class="auth-image-content">
+          <h2>Your Fame Starts Here</h2>
+          <p>Start sharing your content with readers around the world</p>
+        </div>
+      </div>
+
+      <!-- Right side - form -->
+      <div class="auth-form-container">
+        <!-- Dark mode toggle -->
+        <button id="darkModeToggle" class="dark-mode-toggle">
+          <i class="fas fa-moon"></i>
+        </button>
+
+        <div class="auth-form-wrapper">
+          <div class="auth-header">
+            <h1>Launch Your Global Legacy</h1>
+            <p>Start your translation journey with London Pages</p>
+          </div>
+
+          <form id="signupForm" class="auth-form">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <div class="input-with-icon">
+                <i class="fas fa-user"></i>
+                <input type="text" id="name" placeholder="Enter your full name" required>
+              </div>
+              <span class="error-message" id="nameError"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <div class="input-with-icon">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="email" placeholder="Enter your email" required>
+              </div>
+              <span class="error-message" id="emailError"></span>
+            </div>
+
+<div class="form-group">
+  <label for="country">Country</label>
+  <div class="input-with-icon country-wrapper">
+     <i class="fas fa-globe"></i>
+     <select id="country" name="country" class="country-select" required>
+       <option value="" disabled selected>Select your country...</option>
+       <!-- JS options -->
+     </select>
+  </div>
+  <span class="error-message" id="countryError"></span>
+</div>
+
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <div class="input-with-icon password-input">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" placeholder="Create a password" required>
+                <button type="button" class="toggle-password">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+              <span class="error-message" id="passwordError"></span>
+
+              <!-- Password strength meter -->
+              <div class="password-strength" id="passwordStrength">
+                <div class="strength-meter">
+                  <div class="meter-segment" data-strength="1"></div>
+                  <div class="meter-segment" data-strength="2"></div>
+                  <div class="meter-segment" data-strength="3"></div>
+                  <div class="meter-segment" data-strength="4"></div>
+                </div>
+                <span class="strength-text">Password strength: <span id="strengthText">None</span></span>
+              </div>
+            </div>
+
+            <div class="form-group terms">
+              <label class="checkbox-container">
+                <input type="checkbox" id="termsAccepted">
+                <span class="checkmark"></span>
+                I agree to the <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a>
+              </label>
+              <span class="error-message" id="termsError"></span>
+            </div>
+
+            <div class="form-group">
+              <button type="submit" class="btn-submit" id="signupButton">
+                <span>Create Account</span>
+                <div class="spinner" id="signupSpinner"></div>
+              </button>
+            </div>
+
+            <div class="auth-alternate">
+              <p>Already have an account? <a href="/login">Log in</a></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/auth.js"></script>
+  <script type="module" src="assets/js/signup.js"></script>
+</body>
+
+</html>

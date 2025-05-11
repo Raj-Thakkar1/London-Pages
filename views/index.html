@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>London Pages</title>
+  <link rel="stylesheet" href="/styles.css">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/images/London_Pages_official.png" type="image/x-icon">
+  <script src="/theme.js" defer></script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-container">
+        <a href="/" class="header-logo">
+          <img src="/assets/images/London_Pages_official.png" alt="London Pages">
+          <span class="hidden-sm">London Pages</span>
+        </a>
+        
+        <nav class="header-nav">
+          <a href="#features" class="header-nav-link">Features</a>
+          <a href="#how-it-works" class="header-nav-link">How It Works</a>
+          <a href="#pricing" class="header-nav-link">Pricing</a>
+          <a href="#testimonials" class="header-nav-link">Testimonials</a>
+          <a href="/our-models" class="header-nav-link">Our Models</a>
+        </nav>
+        
+        <div class="header-actions">
+          <button id="theme-toggle" class="theme-toggle" title="Toggle theme">
+            <i class="fas fa-moon"></i>
+          </button>
+          <a href="/login" class="btn btn-outline hidden-sm">Log In</a>
+          <a href="/signup" class="btn btn-primary">Sign Up</a>
+          <button class="mobile-menu-button">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <button class="mobile-menu-close">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="mobile-menu-links">
+      <a href="#features" class="mobile-menu-link">Features</a>
+      <a href="#how-it-works" class="mobile-menu-link">How It Works</a>
+      <a href="#pricing" class="mobile-menu-link">Pricing</a>
+      <a href="#testimonials" class="mobile-menu-link">Testimonials</a>
+      <a href="/our-models" class="mobile-menu-link">Our Models</a>
+      <a href="/login" class="mobile-menu-link">Log In</a>
+      <a href="/signup" class="mobile-menu-link">Sign Up</a>
+    </div>
+  </div>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-section">
+        <div class="hero-content">
+          <div class="hero-badges">
+            <span class="badge badge-primary">
+              <i class="fas fa-globe"></i> 29 Languages
+            </span>
+            <span class="badge">
+              <i class="fas fa-bolt"></i> Fast Processing
+            </span>
+          </div>
+          <h1 class="hero-title">Translate your videos to reach a global audience</h1>
+          <p class="hero-subtitle">London Pages helps content creators expand their global reach with AI-powered video translation services in multiple languages.</p>
+          <div class="flex gap-4">
+            <a href="/signup" class="btn btn-primary btn-lg get-started-btn">Get Started</a>
+            <a href="#how-it-works" class="btn btn-outline btn-lg learn-more-btn">Learn More</a>
+          </div>
+        </div>
+        <div class="hero-image-container">
+          <img src="/assets/images/hero-image.svg" alt="Video Translation Illustration" class="hero-image">
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <h2 class="section-title">Powerful Translation Features</h2>
+      <p class="section-subtitle">Our platform offers state-of-the-art translation technology to make your content globally accessible.</p>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-language"></i>
+          </div>
+          <h3 class="feature-title">AI Translation</h3>
+          <p class="feature-description">Our advanced AI technology translates your videos while maintaining your authentic tone and style.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-globe"></i>
+          </div>
+          <h3 class="feature-title">29 Languages</h3>
+          <p class="feature-description">Reach global audiences with support for over 20 languages including Spanish, French, German, Japanese, and more.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-microphone-alt"></i>
+          </div>
+          <h3 class="feature-title">Voice Cloning</h3>
+          <p class="feature-description">Our voice synthesis creates natural-sounding speech that matches the tone of your original content.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3 class="feature-title">Fast Processing</h3>
+          <p class="feature-description">Get your translated videos quickly with our efficient processing that handles videos of any length.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-edit"></i>
+          </div>
+          <h3 class="feature-title">Edit Capabilities</h3>
+          <p class="feature-description">Review and edit translations even after finalizing to ensure accuracy and cultural relevance.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3 class="feature-title">Free Language Suggestor</h3>
+          <p class="feature-description">Enter your channel's theme and our Language suggestor will suggest a few languages to target audiences in the countries in which there is a craze or need for your content, along with reasoning.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- How It Works Section -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-subtitle">Simple process to get your videos translated in just a few steps</p>
+      
+      <div class="steps">
+        <div class="step">
+          <div class="step-image">
+            <img src="/assets/images/600x400.svg" alt="Upload your video">
+          </div>
+          <div class="step-content">
+            <h3 class="step-title">Upload Your Video</h3>
+            <p class="step-description">Simply upload your video to our platform. We support various formats and sizes to accommodate all your content.</p>
+            <a href="/signup" class="btn btn-primary">Get Started</a>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-image">
+            <img src="/assets/images/600x400.svg" alt="Select languages">
+          </div>
+          <div class="step-content">
+            <h3 class="step-title">Select Languages</h3>
+            <p class="step-description">Choose from over 20 languages for translation. Target specific regions or translate into multiple languages at once.</p>
+            <a href="#pricing" class="btn btn-outline">View Pricing</a>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-image">
+            <img src="/assets/images/600x400.svg" alt="AI processes video">
+          </div>
+          <div class="step-content">
+            <h3 class="step-title">AI Processes Your Video</h3>
+            <p class="step-description">Our AI transcribes, translates, and generates voice-overs for your video while keeping your original style and tone.</p>
+            <a href="#features" class="btn btn-outline">Learn About Our AI</a>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-image">
+            <img src="/assets/images/600x400.svg" alt="Download and share">
+          </div>
+          <div class="step-content">
+            <h3 class="step-title">Download & Share</h3>
+            <p class="step-description">Download the translated videos or share them directly from our platform to your social media channels.</p>
+            <a href="/signup" class="btn btn-primary">Start Translating</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Pricing Section -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <h2 class="section-title">Simple, Transparent Pricing</h2>
+      <p class="section-subtitle">Choose the perfect plan for your content needs</p>
+      <div class="pricing-toggle text-center mb-8">
+        <button id="monthlyBtn" class="btn btn-primary btn-sm mr-2 active">Monthly</button>
+        <button id="annualBtn" class="btn btn-outline btn-sm">Annual</button>
+      </div>
+      <div id="monthlyPlans" class="pricing-grid">
+        <div class="pricing-card">
+          <h3 class="pricing-name">Starter</h3>
+          <p class="pricing-description">Perfect for trying out our service</p>
+          <div class="pricing-price">$29</div>
+          <span class="pricing-period">per month, <p><strong>$2.90/min</strong></p></span>
+          <div class="pricing-minutes">10 Minutes of translation</div>
+          
+          <ul class="pricing-features">
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>All 29 languages</span>
+            </li>
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>AI voice synthesis</span>
+            </li>
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>Email support</span>
+            </li>
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>Access our latest models LP 1o and LP 2o</span>
+            </li>
+          </ul>
+          
+          <a href="/payment/checkout?plan=starter" class="btn btn-outline w-full">Get Started</a>
+        </div>
+        
+        <div class="pricing-card">
+          <h3 class="pricing-name">Growth</h3>
+          <p class="pricing-description">For regular content creators</p>
+          <div class="pricing-price">$499</div>
+          <span class="pricing-period">per month, <p><strong>$2.495/min</strong></p></span>
+          <div class="pricing-minutes">200 Minutes of translation</div>
+          
+          <ul class="pricing-features">
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>All 29 languages</span>
+            </li>
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>AI voice synthesis</span>
+            </li>
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>Email support</span>
+            </li>
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>Access our latest models LP 1o and LP 2o</span>
+            </li>
+          </ul>
+          
+          <a href="/payment/checkout?plan=growth" class="btn btn-outline w-full">Get Started</a>
+        </div>
+        
+        <div class="pricing-card popular">
+          <span class="popular-badge">Popular</span>
+          <h3 class="pricing-name">Scale</h3>
+          <p class="pricing-description">For professional creators</p>
+          <div class="pricing-price">$1,500</div>
+          <span class="pricing-period">per month, <p><strong>$3.00/min</strong></p></span>
+          <div class="pricing-minutes">500 Minutes of translation</div>
+          
+          <ul class="pricing-features">
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>All 29 languages</span>
+            </li>
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>AI voice synthesis</span>
+            </li>
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>Email support</span>
+            </li>
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>Access our latest models LP 1o and LP 2o</span>
+            </li>
+          </ul>
+          
+          <a href="/payment/checkout?plan=scale" class="btn btn-primary w-full">Get Started</a>
+        </div>
+        
+        <div class="pricing-card">
+          <h3 class="pricing-name">Enterprise</h3>
+          <p class="pricing-description">For large-scale needs</p>
+          <div class="pricing-price">$1,999</div>
+          <span class="pricing-period">per month, <p><strong>$1.82/min</strong></p></span>
+          <div class="pricing-minutes">1,100 Minutes of translation</div>
+          
+          <ul class="pricing-features">
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>All 29 languages</span>
+            </li>
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>AI voice synthesis</span>
+            </li>
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>Email support</span>
+            </li>
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>Access our latest models LP 1o and LP 2o</span>
+            </li>
+          </ul>
+          
+          <a href="/payment/checkout?plan=enterprise" class="btn btn-outline w-full">Get Started</a>
+        </div>
+        <div class="pricing-card">
+          <h3 class="pricing-name">Empire</h3>
+          <p class="pricing-description">Perfect for large scale use of our service</p>
+          <span class="pricing-period"><p><strong>$1.7/min</strong></p></span>
+          <div class="pricing-minutes">Custom Minutes of translation</div>
+          
+          <ul class="pricing-features">
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>All 29 languages</span>
+            </li>
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>AI voice synthesis</span>
+            </li>
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>Email support</span>
+            </li>
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>Access our latest models LP 1o and LP 2o</span>
+            </li>
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>Priority Support</span>
+            </li>
+            <li class="pricing-feature">
+              <i class="fas fa-check"></i>
+              <span>Priority Translation</span>
+            </li>
+          </ul>
+          <a href="#" class="btn btn-outline w-full disabled">Coming Soon!</a>
+        </div>
+      </div>
+      <div id="annualPlans" class="pricing-grid hidden">
+        <div class="pricing-card">
+          <h3 class="pricing-name">Starter</h3>
+          <p class="pricing-description">Best for getting started annually<br><strong>2 Months Free</strong></p>
+          <div class="pricing-price">$290</div>
+          <span class="pricing-period">per year, <p><strong>$2.42/min</strong></p></span>
+          <div class="pricing-minutes">120 Minutes of translation</div>
+          <ul class="pricing-features">
+            <li class="pricing-feature"><i class="fas fa-check"></i><span>All 29 languages</span></li>
+            <li class="pricing-feature"><i class="fas fa-check"></i><span>AI voice synthesis</span></li>
+            <li class="pricing-feature"><i class="fas fa-check"></i><span>Email support</span></li>
+            <li class="pricing-feature"><i class="fas fa-check"></i><span>Access our latest models LP 1o and LP 2o</span></li>
+          </ul>
+          <a href="/payment/checkout?plan=starter-annual" class="btn btn-outline w-full">Get Started</a>
+        </div>
+        <div class="pricing-card">
+          <h3 class="pricing-name">Growth</h3>
+          <p class="pricing-description">For regular creators, billed annually<br><strong>2 Months Free</strong></p>
+          <div class="pricing-price">$4,990</div>
+          <span class="pricing-period">per year, <p><strong>$2.08/min</strong></p></span>
+          <div class="pricing-minutes">2,400 Minutes of translation</div>
+          <ul class="pricing-features">
+            <li class="pricing-feature"><i class="fas fa-check"></i><span>All 29 languages</span></li>
+            <li class="pricing-feature"><i class="fas fa-check"></i><span>AI voice synthesis</span></li>
+            <li class="pricing-feature"><i class="fas fa-check"></i><span>Email support</span></li>
+            <li class="pricing-feature"><i class="fas fa-check"></i><span>Access our latest models LP 1o and LP 2o</span></li>
+          </ul>
+          <a href="/payment/checkout?plan=growth-annual" class="btn btn-outline w-full">Get Started</a>
+        </div>
+        <div class="pricing-card">
+          <span class="popular-badge">Best Value</span>
+          <h3 class="pricing-name">Scale</h3>
+          <p class="pricing-description">For professional creators, billed annually<br><strong>2 Months Free</strong></p>
+          <div class="pricing-price">$15,000</div>
+          <span class="pricing-period">per year, <p><strong>$2.50/min</strong></p></span>
+          <div class="pricing-minutes">6,000 Minutes of translation</div>
+          <ul class="pricing-features">
+            <li class="pricing-feature"><i class="fas fa-check"></i><span>All 29 languages</span></li>
+            <li class="pricing-feature"><i class="fas fa-check"></i><span>AI voice synthesis</span></li>
+            <li class="pricing-feature"><i class="fas fa-check"></i><span>Email support</span></li>
+            <li class="pricing-feature"><i class="fas fa-check"></i><span>Access our latest models LP 1o and LP 2o</span></li>
+          </ul>
+          <a href="/payment/checkout?plan=scale-annual" class="btn btn-primary w-full">Get Started</a>
+        </div>
+        <div class="pricing-card popular">
+          <span class="popular-badge">Lowest $/min</span>
+          <h3 class="pricing-name">Enterprise</h3>
+          <p class="pricing-description">For large-scale needs, billed annually<br><strong>2 Months Free</strong></p>
+          <div class="pricing-price">$19,990</div>
+          <span class="pricing-period">per year, <p><strong>$1.51/min</strong></p></span>
+          <div class="pricing-minutes">13,200 Minutes of translation</div>
+          <ul class="pricing-features">
+            <li class="pricing-feature"><i class="fas fa-check"></i><span>All 29 languages</span></li>
+            <li class="pricing-feature"><i class="fas fa-check"></i><span>AI voice synthesis</span></li>
+            <li class="pricing-feature"><i class="fas fa-check"></i><span>Email support</span></li>
+            <li class="pricing-feature"><i class="fas fa-check"></i><span>Access our latest models LP 1o and LP 2o</span></li>
+            <li class="pricing-feature"><i class="fas fa-check"></i><span>Priority Support</span></li>
+            <li class="pricing-feature"><i class="fas fa-check"></i><span>Priority Translation</span></li>
+          </ul>
+          <a href="/payment/checkout?plan=enterprise-annual" class="btn btn-outline w-full">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Testimonials Section -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <h2 class="section-title">What Our Users Say</h2>
+      <p class="section-subtitle">Hear from content creators who have expanded their global reach</p>
+      
+      <div class="testimonials-container">
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            London Pages has been a game-changer for my YouTube channel. Since I started using it to translate my tech tutorials, my international subscriber base has grown by over 40% in just three months!
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img src="https://randomuser.me/api/portraits/men/11.jpg" alt="Michael Chen">
+            </div>
+            <div class="author-info">
+              <div class="author-name">Michael Chen</div>
+              <div class="author-role">Tech YouTuber</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            The quality of the translations is impressive. My travel vlogs now reach Spanish-speaking countries with natural-sounding voiceovers that maintain my presenting style. My engagement rates have never been higher!
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Sarah Johnson">
+            </div>
+            <div class="author-info">
+              <div class="author-name">Sarah Johnson</div>
+              <div class="author-role">Travel Vlogger</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            As a fitness instructor, I wanted to share my workouts globally. London Pages made it possible with their seamless translation service. Now I have students following my routines from around the world!
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Elena Martinez">
+            </div>
+            <div class="author-info">
+              <div class="author-name">Elena Martinez</div>
+              <div class="author-role">Fitness Instructor</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <h2 class="cta-title">Ready to Go Global?</h2>
+      <p class="cta-description">Start translating your videos today and reach audiences around the world with your content.</p>
+      <div class="cta-buttons">
+        <a href="/signup" class="btn btn-primary btn-lg create-acc">Create Account</a>
+        <a href="#pricing" class="btn btn-outline btn-lg btn-visible view-pric-btn">View Pricing</a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <img src="/assets/images/London_Pages_official.png" alt="London Pages">
+            <span class="footer-logo-text">London Pages</span>
+          </div>
+          <p class="footer-description">
+            Breaking language barriers for content creators with AI-powered video translation services in multiple languages.
+          </p>
+          <div class="footer-social">
+            <a href="#" class="footer-social-link" aria-label="Twitter">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="footer-social-link" aria-label="Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="footer-social-link" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="footer-social-link" aria-label="YouTube">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="footer-heading">Company</h3>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="/about">About Us</a></li>
+            <li class="footer-link"><a href="/our-models">Our Models</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="footer-heading">Resources</h3>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="/support">Support</a></li>
+            <li class="footer-link"><a href="/london-pages-guide">How to Use London Pages effectively?</a></li>
+            <li class="footer-link"><a href="/contact-us">Contact Us</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="footer-heading">Legal</h3>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="https://merchant.razorpay.com/policy/QQ4LoQqromI0jE/terms">Terms of Service</a></li>
+            <li class="footer-link"><a href="#">Privacy Policy</a></li>
+            <li class="footer-link"><a href="#">Cookie Policy</a></li>
+            <li class="footer-link"><a href="https://merchant.razorpay.com/policy/QQ4LoQqromI0jE/refund">Cancellations and Refunds</a></li>
+            <li class="footer-link"><a href="https://merchant.razorpay.com/policy/QQ4LoQqromI0jE/shipping">Shipping</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy;2025 London Pages. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#" class="footer-bottom-link">Terms</a>
+          <a href="#" class="footer-bottom-link">Privacy</a>
+          <a href="#" class="footer-bottom-link">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

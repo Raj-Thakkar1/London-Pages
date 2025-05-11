@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creator Dashboard | Video Translation Platform</title>
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard-upload-modal.css">
+  <link rel="stylesheet" href="/css/dashboard-videos-translated.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/custom-responsive.css">
+  <link rel="stylesheet" href="/css/dashboard-upload-modal.css">
+</head>
+
+<body>
+  <!-- Vertical Navbar Start -->
+  <nav id="vertical-navbar" class="vertical-navbar closed">
+    <div class="navbar-toggle" id="navbar-toggle" title="Expand/collapse sidebar">
+      <i class="fas fa-bars"></i>
+    </div>
+    <div class="navbar-links">
+      <a href="/dashboard/creator-dashboard" class="navbar-link" title="Dashboard">
+        <i class="fas fa-home"></i>
+        <span class="navbar-text">Dashboard</span>
+      </a>
+      <a href="#" class="navbar-link" title="Language Suggestor">
+        <i class="fas fa-language"></i>
+        <span class="navbar-text">Languages</span>
+      </a>
+    </div>
+    <div class="navbar-links navbar-links-bottom">
+      <a href="/dashboard/notifications" class="navbar-link" title="Notifications">
+        <i class="fas fa-bell"></i>
+        <span class="navbar-text">Notifications</span>
+      </a>
+      <a id="theme-toggle" href="#" class="navbar-link" title="Toggle dark/light mode" type="button">
+        <i class="fas fa-moon" id="theme-icon"></i>
+        <span class="navbar-text">Theme</span>
+      </a>
+      <a href="/dashboard/creator-profile" class="navbar-link" title="Profile">
+        <i class="fas fa-user"></i>
+        <span class="navbar-text">Profile</span>
+      </a>
+    </div>
+  </nav>
+  <!-- Vertical Navbar End -->
+
+  <!-- Sidebar and Theme CSS -->
+  <link rel="stylesheet" href="/css/dashboard-upload-modal.css">
+
+  <main>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h2>Welcome to Your Dashboard</h2>
+          <span class="badge badge-primary">Creator</span>
+        </div>
+        <p>Welcome to your personalized Creator Dashboard! Use the navigation to manage your video translations and
+          related tasks.</p>
+        <p>Track your translation minutes, upload new videos, and monitor the status of your translation projects all in
+          one place.</p>
+      </div>
+      <div class="dashboard-grid">
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-primary"><i class="fas fa-clock"></i></div>
+          <div class="stat-title">Translation Time</div>
+          <div class="stat-value"><span id="dashboard-minutes">--</span>m <span id="dashboard-seconds">--</span>s</div>
+          <div class="stat-desc">Time available for your projects</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-success"><i class="fas fa-check-circle"></i></div>
+          <div class="stat-title">Completed Translations</div>
+          <div class="stat-value" id="translated-videos">0</div>
+          <div class="stat-desc">Videos fully translated</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-warning"><i class="fas fa-hourglass-half"></i></div>
+          <div class="stat-title">Pending Translations</div>
+          <div class="stat-value" id="pending-videos">0</div>
+          <div class="stat-desc">Videos awaiting translation</div>
+        </div>
+        <div style="display: flex; justify-content: center; margin-top: 2rem;">
+          <button id="openUploadModal" class="button btn-outline mb-4" type="button"
+            style="min-width:180px; box-shadow:0 4px 16px rgba(0,0,0,0.08);">
+            <i class="fas fa-upload mr-2"></i> Upload a File
+          </button>
+        </div>
+      </div>
+      <!-- User Videos List -->
+      <div id="user-videos-list" class="card mt-8">
+        <h3 class="text-lg font-semibold mb-4">Your Uploaded Videos</h3>
+        <div id="videos-container">
+          <div class="text-gray-500" id="no-videos-message">Loading your videos...</div>
+        </div>
+      </div>
+      <!-- End User Videos List -->
+    </div>
+  </main>
+  <div id="plan-box">
+    <p>Translation Time: <span id="plan-minutes">--</span>m <span id="plan-seconds">--</span>s</p>
+    <a href="/dashboard/creator-buy-minutes" class="button btn-sm btn-outline"><i class="fas fa-plus-circle"></i> Add
+      Minutes</a>
+  </div>
+  <!-- Upload Modal Popup -->
+  <div id="uploadModalBg" class="modal-upload-bg fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div
+      class="modal-upload-content max-h-[90vh] overflow-y-auto w-full max-w-2xl bg-white rounded-lg shadow-lg p-6 relative">
+      <span class="close-upload-modal" id="closeUploadModal">&times;</span>
+      <h2>Submit Video for Translation</h2>
+      <form id="uploadForm" action="/dashboard/creator-upload-video" method="POST" enctype="multipart/form-data">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="md:col-span-2">
+            <label for="projectName" class="block font-medium mb-2"><i class="fas fa-heading"></i> Project Name:</label>
+            <input type="text" id="projectName" name="projectName" placeholder="Enter project name"
+              class="input w-full mb-4" required>
+          </div>
+          <div>
+            <label for="videoFile" class="block font-medium mb-2"><i class="fas fa-file-video"></i> Video File</label>
+            <input type="file" id="videoFile" name="videoFile" accept="video/*" required class="hidden">
+            <label for="videoFile" class="button btn-outline inline-flex items-center"><i
+                class="fas fa-upload mr-2"></i> Choose File</label>
+            <span id="videoFileName" class="ml-2 text-gray-700"></span>
+            <p class="text-sm text-gray-500 mt-2">Supported formats: MP4, MOV, AVI.</p>
+            <p class="text-sm text-red-600 mt-1 font-semibold">Maximum file size supported: 5GB. Large files, above 1GB,
+              may take a little time.</p>
+            <p class="text-sm text-red-600 mt-1 font-semibold">Videos above 4K are not supported.</p>
+          </div>
+          <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="sourceLanguage" class="block font-medium mb-2"><i class="fas fa-language"></i> Source
+                Language</label>
+              <select id="sourceLanguage" name="sourceLanguage" required>
+                <option value="">Select Source Language</option>
+              </select>
+            </div>
+            <div>
+              <label for="targetLanguage" class="block font-medium mb-2"><i class="fas fa-globe"></i> Target
+                Language</label>
+              <select id="targetLanguage" name="targetLanguage" required>
+                <option value="">Select Target Language</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="card mt-6 bg-gray-50">
+          <h3 class="text-lg font-semibold mb-4">Advanced Options</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="numberOfSpeakers" class="block font-medium mb-2"><i class="fas fa-users"></i> Number of
+                Speakers</label>
+              <select id="numberOfSpeakers" name="numberOfSpeakers" required>
+                <option value="">Select Number of Speakers</option>
+                <option value="auto">Auto Detect</option>
+                <option value="1">1 Speaker</option>
+                <option value="2">2 Speakers</option>
+                <option value="3">3 Speaker</option>
+                <option value="4">4 Speakers</option>
+                <option value="5">5 Speaker</option>
+                <option value="6">6 Speakers</option>
+                <option value="7">7 Speakers</option>
+                <option value="8">8 Speakers</option>
+                <option value="9">9 Speakers</option>
+              </select>
+            </div>
+            <div class="flex flex-col gap-4 mt-4">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" name="removeBackgroundMusic" class="w-auto">
+                <span><i class="fas fa-music"></i> Remove Background Music<div class="text-sm text-gray-500">Separates
+                    speech from background music</div></span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="mt-6 flex justify-end gap-4">
+          <button type="button" class="button btn-outline" id="cancelUploadModal">Cancel</button>
+          <button type="submit" class="button btn-primary"><i class="fas fa-upload mr-2"></i> Upload Video</button>
+        </div>
+      </form>
+      <div id="uploadStatus" class="alert alert-success mt-4" style="display: none;">
+        <div class="flex items-center"><i class="fas fa-spinner fa-spin mr-2"></i><span>Uploading your video... Please
+            wait.</span></div>
+        <div class="progress-bar mt-2">
+          <div class="progress-bar-fill" style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 London Pages | Video Translation Platform</p>
+    </div>
+  </footer>
+  <!-- Move all scripts here to ensure DOM is loaded before JS runs -->
+  <script src="/js/theme.js"></script>
+  <script src="/js/dashboard-dashboard.js" type="module"></script>
+  <script src="/js/dashboard-upload-videos.js" type="module"></script>
+  <script src="/js/dashboard-upload-modal.js"></script>
+</body>
+
+</html>

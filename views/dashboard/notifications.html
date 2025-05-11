@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notifications | Video Translation Platform</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="/js/theme.js"></script>
+  <script src="/js/dashboard-notifications.js" type="module"></script>
+</head>
+<body>
+  <header>
+    <div class="container flex items-center justify-between">
+      <div id="hamburger" class="cursor-pointer">
+        <i class="fas fa-bars"></i>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="/dashboard/creator-videos-submitted"><i class="fas fa-film mr-2"></i>
+              Videos Submitted</a></li>
+          <li><a href="/dashboard/creator-videos-translated"><i class="fas fa-language mr-2"></i>
+              Videos Translated</a></li>
+          <li><a href="/dashboard/creator-view-transcripts"><i class="fas fa-file-alt mr-2"></i>
+              View Transcripts</a></li>
+          <li><a href="/dashboard/creator-upload-videos"><i class="fas fa-upload mr-2"></i>
+              Upload Videos</a></li>
+          <li><a href="/dashboard/creator-profile"
+              class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"><i
+                class="fas fa-user mr-2"></i> Profile</a></li>
+          <li>
+            <div id="theme-toggle" class="cursor-pointer hidden">
+              <i class="fas fa-moon text-gray-600 dark:text-gray-400"></i>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h2>Your Notifications</h2>
+          <span class="badge badge-primary" id="notification-count">0</span>
+        </div>
+        
+        <div id="notifications-toolbar" class="flex justify-between items-center mb-4">
+          <div class="flex gap-2">
+            <button class="button btn-sm btn-outline" id="mark-all-read">
+              <i class="fas fa-check-double"></i> Mark All as Read
+            </button>
+            <button class="button btn-sm btn-outline" id="refresh-notifications">
+              <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+          </div>
+          
+          <div class="flex items-center gap-2">
+            <label for="notification-filter" class="text-sm font-medium mb-0">Filter:</label>
+            <select id="notification-filter" class="w-auto text-sm">
+              <option value="all">All Notifications</option>
+              <option value="unread">Unread Only</option>
+              <option value="read">Read Only</option>
+            </select>
+          </div>
+        </div>
+        
+        <div id="notifications-list" class="space-y-2">
+          <div class="loading-message">Loading notifications...</div>
+        </div>
+        
+        <div id="no-notifications" class="py-8 text-center hidden">
+          <div class="text-gray-500">
+            <i class="fas fa-bell-slash fa-3x mb-4"></i>
+            <p class="text-lg font-medium">No notifications found</p>
+            <p class="text-sm">You'll be notified when there are updates to your videos</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <div id="plan-box">
+    <p>Translation Minutes: <span id="translation-minutes">--</span></p>
+    <a href="/dashboard/creator-buy-minutes" class="button btn-sm btn-outline">
+      <i class="fas fa-plus-circle"></i> Add Minutes
+    </a>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 London Pages | Video Translation Platform</p>
+    </div>
+  </footer>
+</body>
+</html>
