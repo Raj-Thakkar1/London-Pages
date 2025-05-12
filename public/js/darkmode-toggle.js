@@ -4,13 +4,14 @@
 document.addEventListener('DOMContentLoaded', function () {
   const themeToggle = document.getElementById('theme-toggle');
   if (!themeToggle) return;
-  themeToggle.classList.remove('hidden');
 
   // Set initial theme
   const userPref = localStorage.getItem('theme');
   const systemPref = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   const theme = userPref || systemPref;
   setTheme(theme);
+  // Ensure icon is correct on load
+  updateIcon(theme === 'dark');
 
   themeToggle.addEventListener('click', function () {
     const isDark = document.documentElement.classList.toggle('dark');

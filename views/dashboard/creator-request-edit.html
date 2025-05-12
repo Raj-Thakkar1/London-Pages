@@ -36,12 +36,8 @@
     </div>
   </header>
   <main>
-    <!-- The form posts to /dashboard/request-edit -->
     <form id="requestEditForm" method="POST" action="/dashboard/request-edit">
-      <!-- Removed CSRF hidden field -->
-      <!-- The videoId is passed via query parameter; we fill it in here -->
       <input type="hidden" id="videoId" name="videoId" value="">
-
       <label for="issueType">Issue Type:</label>
       <select id="issueType" name="issueType" required>
         <option value="">-- Select Issue --</option>
@@ -49,13 +45,10 @@
         <option value="Voice Cloning">Voice Cloning</option>
         <option value="Subtitles Missing">Subtitles Missing</option>
         <option value="Audio Sync Issue">Audio Sync Issue</option>
-        <!-- Add more options as needed -->
         <option value="Other">Other</option>
       </select>
-
       <label for="description">Describe the issue:</label>
       <textarea id="description" name="description" rows="5" placeholder="Enter details here..." required></textarea>
-
       <button type="submit" id="submitBtn">Submit Request</button>
     </form>
   </main>
