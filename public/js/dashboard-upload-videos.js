@@ -1,7 +1,6 @@
-// ...JS extracted from creator-upload-videos.html <script> tag...
 document.addEventListener("DOMContentLoaded", function () {
-  const fileInput = document.getElementById('videoFile');
-  const fileNameSpan = document.getElementById('videoFileName');
+  var fileInput = document.getElementById('videoFile');
+  var fileNameSpan = document.getElementById('videoFileName');
   if (fileInput && fileNameSpan) {
     fileInput.addEventListener('change', () => {
       fileNameSpan.textContent = fileInput.files.length
@@ -162,15 +161,16 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       const response = await fetch('/dashboard/api/translation-minutes');
       const data = await response.json();
-      document.getElementById('translation-minutes').textContent =
-        data.translationMinutes ?? '--';
-      document.getElementById('translation-seconds').textContent =
-        data.translationSeconds ?? '--';
+      const el = document.getElementById('translation-minutes');
+      const elSec = document.getElementById('translation-seconds');
+      if (el) el.textContent = data.translationMinutes ?? '--';
+      if (elSec) elSec.textContent = data.translationSeconds ?? '--';
     } catch (error) {
       console.error('Error loading translation minutes:', error);
-      showNotification('error', 'Could not load your translation minutes.');
-      document.getElementById('translation-minutes').textContent = '0';
-      document.getElementById('translation-seconds').textContent = '0';
+      const el = document.getElementById('translation-minutes');
+      const elSec = document.getElementById('translation-seconds');
+      if (el) el.textContent = '0';
+      if (elSec) elSec.textContent = '0';
     }
   }
 
@@ -190,34 +190,13 @@ document.addEventListener("DOMContentLoaded", function () {
     themeToggle.addEventListener('click', toggleTheme);
   }
   loadTranslationMinutes();
-  const hamburger = document.getElementById("hamburger");
-  const navMenu = document.querySelector("nav ul");
-  if (hamburger && navMenu) {
-    hamburger.addEventListener("click", () => {
-      navMenu.classList.toggle("active");
-      hamburger.classList.toggle("open");
-      // Update aria-expanded for accessibility
-      const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-      hamburger.setAttribute('aria-expanded', !expanded);
-    });
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
-        navMenu.classList.remove("active");
-        hamburger.classList.remove("open");
-        hamburger.setAttribute('aria-expanded', 'false');
-      }
-    });
-    // Optional: Close menu when a nav link is clicked
-    navMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove("active");
-        hamburger.classList.remove("open");
-        hamburger.setAttribute('aria-expanded', 'false');
-      });
-    });
-    // Set initial aria attributes
-    hamburger.setAttribute('aria-expanded', 'false');
-    hamburger.setAttribute('aria-label', 'Toggle navigation menu');
+
+  // Initial theme set
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.documentElement.classList.add('dark');
+    if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+  } else {
+    if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
   }
 });

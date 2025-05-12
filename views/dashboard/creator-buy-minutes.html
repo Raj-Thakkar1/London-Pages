@@ -6,46 +6,39 @@
   <title>Buy More Minutes - Creator Dashboard</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <script src="/js/theme.js" defer></script>
+  <!-- <script src="/js/theme.js" defer></script> -->
   <script src="/js/dashboard-buy-minutes.js" type="module"></script>
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/dashboard-upload-modal.css">
   <link rel="stylesheet" href="/css/dashboard-videos-translated.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="/assets/css/custom-responsive.css">
+  <link rel="stylesheet" href="/public/css/darkmode-toggle.css">
+  <script src="/public/js/darkmode-toggle.js" defer></script>
+  <style>
+    
+  </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 transition-colors duration-200">
-  <!-- Vertical Navbar Start -->
-  <nav id="vertical-navbar" class="vertical-navbar closed">
-    <div class="navbar-toggle" id="navbar-toggle" title="Expand/collapse sidebar">
-      <img id="hamburger-img" src="/assets/images/toggle button.png" alt="Menu">
+  <header>
+    <div class="container flex items-center justify-between relative">
+      <div id="hamburger" class="cursor-pointer absolute left-0 top-1/2 -translate-y-1/2">
+        <i class="fas fa-bars"></i>
+      </div>
+      <nav class="mx-auto">
+        <ul class="flex justify-center items-center gap-6">
+          <li><a href="/dashboard/creator-dashboard"><i class="fas fa-home mr-2"></i> Home</a></li>
+          <li><a href="/dashboard/notifications"><i class="fas fa-bell mr-2"></i> Notifications</a></li>
+          <li><a href="/dashboard/creator-profile" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"><i class="fas fa-user mr-2"></i> Profile</a></li>
+          <li>
+            <div id="theme-toggle" class="cursor-pointer">
+              <i class="fas fa-moon text-gray-600 dark:text-gray-400"></i>
+            </div>
+          </li>
+        </ul>
+      </nav>
     </div>
-    <div class="navbar-links">
-      <a href="/dashboard/creator-dashboard" class="navbar-link" title="Dashboard">
-        <i class="fas fa-home"></i>
-        <span class="navbar-text">Dashboard</span>
-      </a>
-      <a href="#" class="navbar-link" title="Language Suggestor">
-        <i class="fas fa-language"></i>
-        <span class="navbar-text">Languages</span>
-      </a>
-    </div>
-    <div class="navbar-links navbar-links-bottom">
-      <a href="/dashboard/notifications" class="navbar-link" title="Notifications">
-        <i class="fas fa-bell"></i>
-        <span class="navbar-text">Notifications</span>
-      </a>
-      <a id="theme-toggle" href="#" class="navbar-link" title="Toggle dark/light mode" type="button">
-        <i class="fas fa-moon" id="theme-icon"></i>
-        <span class="navbar-text">Theme</span>
-      </a>
-      <a href="/dashboard/creator-profile" class="navbar-link" title="Profile">
-        <i class="fas fa-user"></i>
-        <span class="navbar-text">Profile</span>
-      </a>
-    </div>
-  </nav>
-  <!-- Vertical Navbar End -->
+  </header>
   <main class="container mx-auto px-4 py-8">
       <div class="text-center p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
         <p class="text-lg font-medium mb-4"><i class="fas fa-clock text-primary mr-2"></i> Coming Soon!</p>
@@ -62,5 +55,6 @@
       <p>&copy; 2025 London Pages | Video Translation Platform</p>
     </div>
   </footer>
+  <script src="/navbar/script.js"></script>
 </body>
 </html>

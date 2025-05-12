@@ -10,59 +10,61 @@
   <link rel="stylesheet" href="/css/dashboard-videos-translated.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="/assets/css/custom-responsive.css">
+  <link rel="stylesheet" href="/css/creator-profile.css">
 </head>
 <body>
-  <!-- Vertical Navbar Start -->
-  <nav id="vertical-navbar" class="vertical-navbar closed">
-    <div class="navbar-toggle" id="navbar-toggle" title="Expand/collapse sidebar">
-      <img id="hamburger-img" src="/assets/images/toggle button.png" alt="Menu">
+  <header>
+    <div class="flex items-center justify-center relative w-full" style="max-width:100vw;width:100vw;margin:0;padding:0;">
+      <div id="hamburger" class="cursor-pointer absolute left-0 top-1/2 -translate-y-1/2">
+        <i class="fas fa-bars"></i>
+      </div>
+      <nav class="mx-auto">
+        <ul class="flex justify-center items-center gap-6">
+          <li><a href="/dashboard/creator-dashboard"><i class="fas fa-home mr-2"></i> Home</a></li>
+          <li><a href="/dashboard/notifications"><i class="fas fa-bell mr-2"></i> Notifications</a></li>
+          <li><a href="/dashboard/creator-profile" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"><i class="fas fa-user mr-2"></i> Profile</a></li>
+          <li>
+            <div id="theme-toggle" class="cursor-pointer hidden">
+              <i class="fas fa-moon text-gray-600 dark:text-gray-400"></i>
+            </div>
+          </li>
+        </ul>
+      </nav>
     </div>
-    <div class="navbar-links">
-      <a href="/dashboard/creator-dashboard" class="navbar-link" title="Dashboard">
-        <i class="fas fa-home"></i>
-        <span class="navbar-text">Dashboard</span>
-      </a>
-      <a href="#" class="navbar-link" title="Language Suggestor">
-        <i class="fas fa-language"></i>
-        <span class="navbar-text">Languages</span>
-      </a>
+  </header>
+  <main style="display: flex; justify-content: center; align-items: center; min-height: 80vh; width: 100vw;">
+    <div class="profile-card">
+      <img src="/assets/images/person.png" alt="Profile Avatar" class="profile-avatar">
+      <div class="profile-title">Creator Profile</div>
+      <div class="profile-info">
+        <span><i class="fas fa-user-circle fa-lg text-primary"></i></span>
+        <div>
+          <div class="profile-info-label">Name</div>
+          <div class="profile-info-value"><%= creator.name %></div>
+        </div>
+        <span><i class="fas fa-envelope fa-lg text-primary"></i></span>
+        <div>
+          <div class="profile-info-label">Email</div>
+          <div class="profile-info-value"><%= creator.email %></div>
+        </div>
+        <span><i class="fas fa-calendar-alt fa-lg text-primary"></i></span>
+        <div>
+          <div class="profile-info-label">Member Since</div>
+          <div class="profile-info-value"><%= creator.createdAt ? new Date(creator.createdAt.seconds * 1000).toLocaleDateString() : 'N/A' %></div>
+        </div>
+        <span><i class="fas fa-clock fa-lg text-primary"></i></span>
+        <div>
+          <div class="profile-info-label">Translation Time Left</div>
+          <div class="profile-info-value"><%= creator.translationMinutes ? `${creator.translationMinutes}m ${creator.translationSeconds || 0}s` : 'N/A' %></div>
+        </div>
+      </div>
+      <div class="profile-actions">
+        <a href="/dashboard/creator-buy-minutes" class="profile-btn"><i class="fas fa-coins"></i> Buy More Minutes</a>
+        <a href="/dashboard/notifications" class="profile-btn"><i class="fas fa-bell"></i> Notifications</a>
+      </div>
     </div>
-    <div class="navbar-links navbar-links-bottom">
-      <a href="/dashboard/notifications" class="navbar-link" title="Notifications">
-        <i class="fas fa-bell"></i>
-        <span class="navbar-text">Notifications</span>
-      </a>
-      <a id="theme-toggle" href="#" class="navbar-link" title="Toggle dark/light mode" type="button">
-        <i class="fas fa-moon" id="theme-icon"></i>
-        <span class="navbar-text">Theme</span>
-      </a>
-      <a href="/dashboard/creator-profile" class="navbar-link" title="Profile">
-        <i class="fas fa-user"></i>
-        <span class="navbar-text">Profile</span>
-      </a>
-    </div>
-  </nav>
-  <!-- Vertical Navbar End -->
-  <div class="container">
-    <h1>Creator Profile</h1>
-    <form>
-      <label for="name">Name:</label>
-      <input type="text" id="name" value="<%= creator.name %>" readonly>
-      
-      <label for="email">Email:</label>
-      <input type="email" id="email" value="<%= creator.email %>" readonly>
-      
-      <label for="createdAt">Member Since:</label>
-      <input type="text" id="createdAt" value="<%= creator.createdAt ? new Date(creator.createdAt.seconds * 1000).toLocaleDateString() : 'N/A' %>" readonly>
-      
-      <label for="translationMinutes">Translation Time Left:</label>
-      <input type="text" id="translationMinutes" value="<%= creator.translationMinutes ? `${creator.translationMinutes}m ${creator.translationSeconds || 0}s` : 'N/A' %>" readonly>
-    </form>
-    
-    <div class="nav-links">
-      <a href="/dashboard/creator-buy-minutes">Buy More Minutes</a>
-      <a href="/dashboard/notifications">Notifications</a>
-    </div>
-  </div>
+  </main>
+  <script src="/navbar/script.js"></script>
+  <script src="/js/creator-profile.js"></script>
 </body>
 </html>

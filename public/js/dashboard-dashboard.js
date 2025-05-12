@@ -1,4 +1,4 @@
-// ...JS extracted from creator-dashboard.html <script> tag...
+// Notification handler
 function showNotification(type, message) {
   const notification = document.createElement("div");
   notification.className = `notification ${type}`;
@@ -20,28 +20,36 @@ function showNotification(type, message) {
   }, 5000);
 }
 
+// Load translation minutes
 async function loadTranslationMinutes() {
   try {
     const response = await fetch('/dashboard/api/translation-minutes');
     const data = await response.json();
     const minutes = data.translationMinutes !== undefined ? data.translationMinutes : 'N/A';
     const seconds = data.translationSeconds !== undefined ? data.translationSeconds : '0';
-    document.getElementById('dashboard-minutes').textContent = minutes;
-    document.getElementById('dashboard-seconds').textContent = seconds;
-    document.getElementById('plan-minutes').textContent = minutes;
-    document.getElementById('plan-seconds').textContent = seconds;
+    const dashMin = document.getElementById('dashboard-minutes');
+    const dashSec = document.getElementById('dashboard-seconds');
+    const planMin = document.getElementById('plan-minutes');
+    const planSec = document.getElementById('plan-seconds');
+    if (dashMin) dashMin.textContent = minutes;
+    if (dashSec) dashSec.textContent = seconds;
+    if (planMin) planMin.textContent = minutes;
+    if (planSec) planSec.textContent = seconds;
   } catch (error) {
     console.error('Error loading translation minutes:', error);
     showNotification('error', 'Could not load your translation minutes.');
     ['dashboard-minutes', 'plan-minutes'].forEach(id => {
-      document.getElementById(id).textContent = '0';
+      const el = document.getElementById(id);
+      if (el) el.textContent = '0';
     });
     ['dashboard-seconds', 'plan-seconds'].forEach(id => {
-      document.getElementById(id).textContent = '0';
+      const el = document.getElementById(id);
+      if (el) el.textContent = '0';
     });
   }
 }
 
+// Load submitted videos
 async function loadSubmittedVideos() {
   try {
     const response = await fetch('/dashboard/api/creator-videos-submitted');
@@ -53,6 +61,7 @@ async function loadSubmittedVideos() {
     const videos = data.videos || [];
     const container = document.getElementById('videos-container');
     const noVideosMsg = document.getElementById('no-videos-message');
+    if (!container) return;
     if (videos.length === 0) {
       if (noVideosMsg) noVideosMsg.textContent = 'No videos uploaded. Upload now!';
       container.innerHTML = '<div class="text-gray-500">No videos uploaded. Upload now!</div>';
@@ -82,43 +91,13 @@ async function loadSubmittedVideos() {
             year: 'numeric', month: 'short', day: 'numeric',
             hour: '2-digit', minute: '2-digit'
           });
-        } else {
-          formattedDate = 'Unknown'; // fallback to a user-friendly value
         }
       }
       div.innerHTML = `
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full actions-grid-mobile">
-          <div class="flex flex-col gap-2 w-full md:w-auto">
-            <div class="mb-1">
-              <strong>${video.projectName || video.fileName || 'Untitled Video'}</strong>
-            </div>
-            ${video.assignedStatus === 'translated' ? `
-              <div class="dropdown w-full md:w-auto">
-                <button
-                  class="btn btn-indigo dropdown-toggle w-full md:w-auto px-8 py-6 text-lg font-semibold"
-                  type="button"
-                  id="actionsMenu"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Actions
-                </button>
-                <ul class="dropdown-menu w-full md:w-auto" aria-labelledby="actionsMenu">
-                  <li><a class="dropdown-item" href="#">Download Translated Video</a></li>
-                  <li><a class="dropdown-item" href="#">Download Audio</a></li>
-                  <li><a class="dropdown-item" href="#">Download Transcript</a></li>
-                </ul>
-              </div>
-            ` : ''}
+        <div class="flex flex-col gap-2 w-full">
+          <div class="mb-1">
+            <strong>${video.projectName || video.fileName || 'Untitled Video'}</strong>
           </div>
-          ${video.assignedStatus === 'translated' ? `
-            <div class="custom-responsive-btn-grid grid grid-cols-2 lg:grid-cols-4 gap-3 w-full md:w-auto">
-              <button class="custom-responsive-btn ai-proofread-btn bg-indigo-600 text-white rounded-lg px-8 py-6 text-lg font-semibold shadow hover:bg-indigo-700 transition w-full">AI Proofread</button>
-              <button class="custom-responsive-btn human-proofread-btn bg-indigo-600 text-white rounded-lg px-8 py-6 text-lg font-semibold shadow hover:bg-indigo-700 transition w-full">Hybrid Proofread</button>
-              <button class="custom-responsive-btn video-editor-btn bg-indigo-600 text-white rounded-lg px-8 py-6 text-lg font-semibold shadow hover:bg-indigo-700 transition w-full">Edit Transcript</button>
-              <button class="invisible lg:visible w-full">&nbsp;</button>
-            </div>
-          ` : ''}
         </div>
       `;
       container.appendChild(div);
@@ -129,107 +108,43 @@ async function loadSubmittedVideos() {
     console.error('Error loading videos:', error);
   }
 }
-function toggleTheme() {
-  if (document.documentElement.classList.contains('dark')) {
-    document.documentElement.classList.remove('dark');
-    localStorage.setItem('theme', 'light');
-    document.getElementById('theme-toggle-nav').innerHTML = '<i class="fas fa-moon text-gray-600"></i>';
-  } else {
+
+// Theme logic
+function setTheme(dark) {
+  const themeIcon = document.getElementById('theme-icon');
+  if (dark) {
     document.documentElement.classList.add('dark');
-    localStorage.setItem('theme', 'dark');
-    document.getElementById('theme-toggle-nav').innerHTML = '<i class="fas fa-sun text-gray-400"></i>';
+    if (themeIcon) {
+      themeIcon.classList.remove('fa-moon');
+      themeIcon.classList.add('fa-sun');
+    }
+  } else {
+    document.documentElement.classList.remove('dark');
+    if (themeIcon) {
+      themeIcon.classList.remove('fa-sun');
+      themeIcon.classList.add('fa-moon');
+    }
   }
+  localStorage.setItem('theme', dark ? 'dark' : 'light');
 }
 function initTheme() {
   const savedTheme = localStorage.getItem('theme');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-    document.documentElement.classList.add('dark');
-    document.getElementById('theme-toggle-nav').innerHTML = '<i class="fas fa-sun text-gray-400"></i>';
-  } else {
-    document.getElementById('theme-toggle-nav').innerHTML = '<i class="fas fa-moon text-gray-600"></i>';
+  let darkMode = savedTheme === 'dark' || (!savedTheme && prefersDark);
+  setTheme(darkMode);
+  const themeToggle = document.getElementById('theme-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      darkMode = !document.documentElement.classList.contains('dark');
+      setTheme(darkMode);
+    });
   }
 }
-window.onload = function () {
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Load data and theme
   loadTranslationMinutes();
   loadSubmittedVideos();
   initTheme();
-  document.getElementById('theme-toggle-nav').addEventListener('click', toggleTheme);
-};
-document.addEventListener("DOMContentLoaded", function () {
-  const hamburger = document.getElementById("hamburger");
-  const navMenu = document.querySelector("nav ul");
-  if (hamburger && navMenu) {
-    hamburger.addEventListener("click", function () {
-      navMenu.classList.toggle("active");
-    });
-  }
 });
-const navbar = document.getElementById('vertical-navbar');
-const toggleBtn = document.getElementById('navbar-toggle');
-const closeBtn = document.getElementById('close-navbar-mobile');
-const body = document.body;
-let isOpen = false;
-
-function setNavbarState(open) {
-  isOpen = open;
-  if (open) {
-    navbar.classList.add('open');
-    navbar.classList.remove('closed');
-    body.classList.add('navbar-open');
-    toggleBtn.style.display = 'none';
-    closeBtn.style.display = 'block';
-  } else {
-    navbar.classList.remove('open');
-    navbar.classList.add('closed');
-    body.classList.remove('navbar-open');
-    toggleBtn.style.display = 'block';
-    closeBtn.style.display = 'none';
-  }
-}
-
-toggleBtn.addEventListener('click', () => setNavbarState(true));
-closeBtn.addEventListener('click', () => setNavbarState(false));
-
-// Optionally, close when clicking outside the navbar on mobile
-document.addEventListener('click', (e) => {
-  if (isOpen && !navbar.contains(e.target) && e.target !== toggleBtn) {
-    setNavbarState(false);
-  }
-});
-
-// Initial state
-body.classList.add('with-navbar');
-setNavbarState(false);
-
-toggleBtn.addEventListener('click', () => setNavbarState(!isOpen));
-
-// Hover to open when closed
-navbar.addEventListener('mouseenter', () => {
-  if (!isOpen) setNavbarState(true);
-});
-navbar.addEventListener('mouseleave', () => {
-  if (isOpen) setNavbarState(false);
-});
-
-// Dark/Light mode toggle
-const themeToggle = document.getElementById('theme-toggle');
-const themeIcon = document.getElementById('theme-icon');
-function setTheme(dark) {
-  if (dark) {
-    document.documentElement.classList.add('dark');
-    themeIcon.classList.remove('fa-moon');
-    themeIcon.classList.add('fa-sun');
-  } else {
-    document.documentElement.classList.remove('dark');
-    themeIcon.classList.remove('fa-sun');
-    themeIcon.classList.add('fa-moon');
-  }
-}
-let darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-setTheme(darkMode);
-themeToggle.addEventListener('click', () => {
-  darkMode = !darkMode;
-  setTheme(darkMode);
-});
-

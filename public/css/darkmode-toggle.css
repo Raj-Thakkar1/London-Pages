@@ -1,0 +1,36 @@
+/* Dark/Light mode toggle extra styles */
+:root {
+  --primary: #2563eb;
+}
+
+.dark body {
+  background-color: #111827 !important;
+  color: #d1d5db;
+}
+
+.dark .bg-gray-100, .dark .bg-gray-50 {
+  background-color: #1f2937 !important;
+}
+
+.dark .text-gray-600 {
+  color: #d1d5db !important;
+}
+
+.dark .card, .dark .rounded-lg {
+  background-color: #1e293b !important;
+  color: #d1d5db !important;
+}
+
+.dark .button, .dark .btn-outline {
+  background: transparent;
+  color: #d1d5db;
+  border-color: #374151;
+}
+
+/* Theme toggle icon */
+#theme-toggle i.fa-sun {
+  color: #facc15 !important;
+}
+#theme-toggle i.fa-moon {
+  color: #64748b !important;
+}

@@ -253,3 +253,34 @@
 {"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-11T13:40:27.537Z"}
 {"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-11T14:41:24.840Z"}
 {"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-11T14:41:26.392Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-12T06:05:11.755Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T06:05:13.310Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-12T06:08:40.430Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T06:08:41.274Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-12T06:24:20.670Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T06:24:21.816Z"}
+{"level":"error","message":"Unhandled error Failed to lookup view \"dashboard/creator-upload-videos\" in views directory \"/workspaces/London-Pages/views\"","timestamp":"2025-05-12T06:31:45.188Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-12T07:15:57.429Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T07:15:59.231Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-12T07:17:11.545Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T07:17:13.037Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-12T07:20:38.446Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T07:20:43.466Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-12T07:23:37.675Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T07:23:42.386Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-12T07:26:38.229Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T07:26:43.951Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-12T07:30:05.832Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T07:30:09.192Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-12T07:30:47.620Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T07:30:53.700Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-12T07:31:31.931Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T07:31:37.484Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-12T07:34:06.616Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T07:34:12.331Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-12T07:39:27.454Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T07:39:31.410Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-12T07:44:07.914Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T07:44:13.134Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-12T07:46:41.961Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T07:46:44.987Z"}

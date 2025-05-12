@@ -219,7 +219,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  color: var(--primary);
+  color: var (--primary);
   background-color: var(--gray-100);
 }
 
@@ -291,7 +291,7 @@ main {
 
 .video-item-meta {
   font-size: 0.875rem;
-  color: var(--gray-500);
+  color: var (--gray-500);
 }
 
 .video-item-actions {
@@ -907,10 +907,15 @@ html.dark {
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
+  color: #111827; /* black in light mode */
 }
 
 #theme-toggle:hover {
   background-color: var(--gray-100);
+}
+
+.dark #theme-toggle {
+  color: #fff;
 }
 
 .dark #theme-toggle:hover {
@@ -1015,9 +1020,24 @@ html.dark {
   font-size: 1.5rem;
   cursor: pointer;
   transition: color 0.3s ease;
+  color: #111827; /* black in light mode */
 }
 
-/* When screen is less than 1024px */
+@media (max-width: 1023px) {
+  #hamburger {
+    display: block;
+  }
+}
+
+#hamburger:hover {
+  color: var(--primary);
+}
+
+/* Hamburger icon color in dark mode */
+.dark #hamburger {
+  color: #fff;
+}
+
 /* --------------------------
    Hamburger menu for navbar with dark theme overrides
 --------------------------- */
