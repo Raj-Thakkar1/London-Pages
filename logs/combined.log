@@ -306,3 +306,51 @@
 {"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T12:40:57.877Z"}
 {"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-12T12:43:06.063Z"}
 {"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T12:43:06.974Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-12T12:46:56.219Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T12:46:57.094Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-12T12:52:36.158Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T12:52:37.144Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-12T12:58:48.934Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T12:58:49.809Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-12T14:34:47.623Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T14:34:52.793Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-12T15:20:41.350Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-12T15:20:42.246Z"}
+{"error":{},"level":"error","message":"Error in audio extraction","timestamp":"2025-05-12T15:23:17.742Z"}
+{"error":{"code":"EISDIR","errno":-21,"path":"/workspaces/London-Pages/uploads/audio-1747063397740","syscall":"unlink"},"level":"error","message":"Error deleting temp file","timestamp":"2025-05-12T15:23:17.745Z"}
+{"error":{},"level":"error","message":"Error in audio extraction","timestamp":"2025-05-12T15:26:44.300Z"}
+{"error":{"code":"EISDIR","errno":-21,"path":"/workspaces/London-Pages/uploads/audio-1747063604300","syscall":"unlink"},"level":"error","message":"Error deleting temp file","timestamp":"2025-05-12T15:26:44.301Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-13T04:26:57.263Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-13T04:26:58.885Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-13T04:34:40.260Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-13T04:34:41.098Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-13T04:43:10.914Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-13T04:43:11.782Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-13T04:54:32.664Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-13T04:54:33.620Z"}
+{"error":{},"level":"error","message":"Error in audio extraction","timestamp":"2025-05-13T05:00:18.574Z"}
+{"error":{"code":"EISDIR","errno":-21,"path":"/workspaces/London-Pages/uploads/audio-1747112418573","syscall":"unlink"},"level":"error","message":"Error deleting temp file","timestamp":"2025-05-13T05:00:18.576Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-13T06:56:47.236Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-13T06:56:49.023Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-13T07:08:11.967Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-13T07:08:12.914Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-13T07:12:44.731Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-13T07:12:45.670Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-13T10:21:41.956Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-13T10:21:43.832Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-13T10:29:44.604Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-13T10:29:45.549Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-13T10:37:18.876Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-13T10:37:19.882Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-13T10:37:50.515Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-13T10:37:51.466Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-13T10:43:22.973Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-13T10:43:23.949Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-13T10:43:39.703Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-13T10:43:40.734Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-13T10:53:45.085Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-13T10:53:45.999Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-13T15:12:17.099Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-13T15:12:19.278Z"}
+{"level":"warn","message":"Using a generated session secret. Set SESSION_SECRET in production!","timestamp":"2025-05-13T15:18:19.542Z"}
+{"level":"info","message":"Server is running on port 3000","timestamp":"2025-05-13T15:18:20.480Z"}

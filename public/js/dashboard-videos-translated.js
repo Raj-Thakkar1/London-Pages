@@ -115,10 +115,10 @@ function createVideoItem(video, freeEditRequested) {
             ${
               freeEditRequested
                 ? `<button disabled class="button btn-xs md:btn-sm btn-secondary request-btn px-2 py-1 text-xs md:text-sm w-full md:w-auto flex items-center justify-center min-w-0">
-                     <i class="fas fa-check mr-1"></i> Edit Requested
+                     <i class="fas fa-check mr-1"></i> Hybrid Proofread Requested
                    </button>`
-                : `<button class="button btn-xs md:btn-sm btn-success request-btn px-2 py-1 text-xs md:text-sm w-full md:w-auto flex items-center justify-center min-w-0 request-edit-btn" data-video-id="${video.id}">
-                     <i class="fas fa-edit mr-1"></i> Request Edit
+                : `<button class="button btn-xs md:btn-sm btn-success request-btn px-2 py-1 text-xs md:text-sm w-full md:w-auto flex items-center justify-center min-w-0 request-hybrid-proofread-btn" data-video-id="${video.id}">
+                     <i class="fas fa-spell-check mr-1"></i> Hybrid Proofread
                    </button>`
             }
           </div>
@@ -134,10 +134,10 @@ function createVideoItem(video, freeEditRequested) {
         downloadAudio(video.id);
       });
     }
-    const requestEditBtn = div.querySelector('.request-edit-btn');
-    if (requestEditBtn) {
-      requestEditBtn.addEventListener('click', function() {
-        requestFreeEdit(video.id);
+    const requestHybridProofreadBtn = div.querySelector('.request-hybrid-proofread-btn');
+    if (requestHybridProofreadBtn) {
+      requestHybridProofreadBtn.addEventListener('click', function() {
+        requestHybridProofread(video.id);
       });
     }
   }, 0);
@@ -173,6 +173,12 @@ async function requestFreeEdit(videoId) {
     demoFreeEditStatus[videoId] = true;
     displayVideos(demoVideos, demoFreeEditStatus);
   }
+}
+
+async function requestHybridProofread(videoId) {
+  if (!confirm('Are you sure you want to request a hybrid proofread for this video?')) return;
+  // Redirect to the hybrid proofread form, passing the videoId as a query param
+  window.location.href = `/dashboard/hybrid-proofread?videoId=${videoId}`;
 }
 
 function filterVideos() {

@@ -1,0 +1,234 @@
+/* Redesigned Hybrid Proofread Page Styles */
+.hybrid-proofread-card {
+  background: #fff;
+  border-radius: 1.25rem;
+  box-shadow: 0 6px 32px 0 rgba(0,0,0,0.10), 0 1.5px 6px 0 rgba(0,0,0,0.07);
+  max-width: 430px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  transition: box-shadow 0.2s;
+}
+.hybrid-proofread-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.hybrid-proofread-header i {
+  font-size: 2.2rem;
+  color: #007aff;
+  margin-bottom: 0.5rem;
+}
+.hybrid-proofread-header h2 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  color: #222;
+}
+.hybrid-proofread-header .subtitle {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+.hybrid-proofread-form .form-group {
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+.hybrid-proofread-form label {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #333;
+}
+.hybrid-proofread-form select,
+.hybrid-proofread-form textarea {
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  background: #f9fafb;
+  color: #222;
+  transition: border 0.2s;
+}
+.hybrid-proofread-form select:focus,
+.hybrid-proofread-form textarea:focus {
+  border-color: #007aff;
+  outline: none;
+}
+.hybrid-proofread-btn {
+  background: linear-gradient(90deg, #007aff 60%, #0051a8 100%);
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.9rem 0;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 8px 0 rgba(0,122,255,0.10);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.hybrid-proofread-btn:hover {
+  background: linear-gradient(90deg, #0051a8 60%, #007aff 100%);
+  box-shadow: 0 4px 16px 0 rgba(0,122,255,0.13);
+}
+@media (max-width: 600px) {
+  .hybrid-proofread-card {
+    padding: 1.2rem 0.5rem 1.5rem 0.5rem;
+    max-width: 98vw;
+  }
+  .hybrid-proofread-header h2 {
+    font-size: 1.2rem;
+  }
+}
+body.dark .hybrid-proofread-card {
+  background: #23272f;
+  color: #f3f3f3;
+}
+body.dark .hybrid-proofread-header h2 {
+  color: #fff;
+}
+body.dark .hybrid-proofread-form label {
+  color: #e0e0e0;
+}
+body.dark .hybrid-proofread-form select,
+body.dark .hybrid-proofread-form textarea {
+  background: #23272f;
+  color: #f3f3f3;
+  border: 1px solid #444;
+}
+body.dark .hybrid-proofread-btn {
+  background: linear-gradient(90deg, #0051a8 60%, #007aff 100%);
+}
+
+/* Modern Hybrid Navbar Styles */
+.hybrid-navbar {
+  background: #fff;
+  border-radius: 0.8rem;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.07);
+  padding: 0.5rem 1.5rem;
+  margin: 1.5rem auto 2.5rem auto;
+  max-width: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hybrid-navbar-list {
+  display: flex;
+  gap: 2.2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.hybrid-navbar-list li {
+  display: flex;
+  align-items: center;
+}
+.hybrid-navbar-list a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #222;
+  font-weight: 500;
+  font-size: 1.08rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: background 0.18s, color 0.18s;
+}
+.hybrid-navbar-list a:hover {
+  background: #007aff22;
+  color: #007aff;
+}
+.hybrid-navbar-list i {
+  font-size: 1.2rem;
+  color: #007aff;
+  transition: color 0.18s;
+}
+.theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f6fa;
+  border-radius: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.theme-toggle-btn:hover {
+  background: #007aff22;
+}
+.theme-toggle-btn i {
+  color: #007aff;
+  font-size: 1.2rem;
+}
+@media (max-width: 700px) {
+  .hybrid-navbar {
+    max-width: 98vw;
+    padding: 0.5rem 0.3rem;
+  }
+  .hybrid-navbar-list {
+    gap: 1.1rem;
+  }
+  .hybrid-navbar-list a {
+    font-size: 0.98rem;
+    padding: 0.3rem 0.5rem;
+  }
+}
+body.dark .hybrid-navbar {
+  background: #23272f;
+}
+body.dark .hybrid-navbar-list a {
+  color: #e0e0e0;
+}
+body.dark .hybrid-navbar-list a:hover {
+  background: #007aff22;
+  color: #fff;
+}
+body.dark .hybrid-navbar-list i,
+body.dark .theme-toggle-btn i {
+  color: #7bbcff;
+}
+body.dark .theme-toggle-btn {
+  background: #23272f;
+}
+
+body.darkbg {
+  background: linear-gradient(135deg, #181c24 0%, #23272f 100%) !important;
+}
+
+body.darkbg .hybrid-proofread-card,
+body.darkbg .hybrid-navbar {
+  background: #23272f !important;
+  color: #f3f3f3;
+}
+body.darkbg .hybrid-proofread-header h2,
+body.darkbg .hybrid-proofread-form label {
+  color: #e0e0e0;
+}
+body.darkbg .hybrid-proofread-form select,
+body.darkbg .hybrid-proofread-form textarea {
+  background: #23272f;
+  color: #f3f3f3;
+  border: 1px solid #444;
+}
+body.darkbg .hybrid-proofread-btn {
+  background: linear-gradient(90deg, #0051a8 60%, #007aff 100%);
+}
+body.darkbg .hybrid-navbar-list a {
+  color: #e0e0e0;
+}
+body.darkbg .hybrid-navbar-list a:hover {
+  background: #007aff22;
+  color: #fff;
+}
+body.darkbg .hybrid-navbar-list i,
+body.darkbg .theme-toggle-btn i {
+  color: #7bbcff;
+}
+body.darkbg .theme-toggle-btn {
+  background: #23272f;
+}

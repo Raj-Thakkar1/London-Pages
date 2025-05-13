@@ -259,6 +259,9 @@ if (db) {
   });
 }
 
+// Start translation status checker background process
+require('./translationStatusChecker');
+
 if (require.main === module) {
   app.listen(PORT, () => {
     logger.info(`Server is running on port ${PORT}`);

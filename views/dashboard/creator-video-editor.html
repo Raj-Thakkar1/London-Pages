@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Transcript Editor</title>
+  <link rel="stylesheet" href="/css/tailwind.css">
+  <link rel="stylesheet" href="/assets/css/modern-design.css">
+  <link rel="stylesheet" href="/assets/css/dashboard-videos-translated.css">
+  <link rel="stylesheet" href="/css/video-editor.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <div class="editor-container">
+    <h1 class="text-2xl font-bold mb-4 text-indigo-700">Video Transcript Editor</h1>
+    <video id="video-preview" class="video-preview mb-6" controls></video>
+    <form id="transcript-form">
+      <div id="segments-list"></div>
+      <div class="flex justify-end mt-6">
+        <button type="submit" class="save-btn">Save Changes</button>
+      </div>
+    </form>
+  </div>
+  <div id="notification" class="notification"></div>
+  <script src="/js/video-editor.js"></script>
+</body>
+</html>

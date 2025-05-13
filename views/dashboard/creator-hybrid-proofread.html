@@ -1,0 +1,71 @@
+<!-- Hybrid Proofread Form (renamed from Request Free Edit) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hybrid Proofread</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css" />
+  <link rel="stylesheet" href="/css/dashboard-request-edit.css">
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/dashboard-upload-modal.css">
+  <link rel="stylesheet" href="/css/dashboard-videos-translated.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/custom-responsive.css">
+  <link rel="stylesheet" href="/css/darkmode-toggle.css">
+  <link rel="stylesheet" href="/css/hybrid-proofread.css">
+  <script src="/js/darkmode-toggle.js" defer></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 transition-colors duration-200">
+  <header>
+    <div class="container flex items-center justify-between relative">
+      <div id="hamburger" class="cursor-pointer absolute left-0 top-1/2 -translate-y-1/2">
+        <i class="fas fa-bars"></i>
+      </div>
+      <nav class="hybrid-navbar">
+        <ul class="hybrid-navbar-list">
+          <li><a href="/dashboard/creator-dashboard"><i class="fas fa-home"></i><span>Home</span></a></li>
+          <li><a href="/dashboard/notifications"><i class="fas fa-bell"></i><span>Notifications</span></a></li>
+          <li><a href="/dashboard/creator-profile"><i class="fas fa-user"></i><span>Profile</span></a></li>
+          <li>
+            <div id="theme-toggle" class="theme-toggle-btn" title="Toggle dark mode">
+              <i class="fas fa-moon"></i>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 to-white dark:from-gray-900 dark:to-gray-800 py-10">
+    <div class="hybrid-proofread-card">
+      <div class="hybrid-proofread-header">
+        <i class="fas fa-edit"></i>
+        <h2>Hybrid Proofread Request</h2>
+        <p class="subtitle">Let us know what needs attention. Our team will review your request promptly.</p>
+      </div>
+      <form id="hybridProofreadForm" method="POST" action="/dashboard/hybrid-proofread" class="hybrid-proofread-form">
+        <input type="hidden" id="videoId" name="videoId" value="">
+        <div class="form-group">
+          <label for="issueType">Issue Type</label>
+          <select id="issueType" name="issueType" required>
+            <option value="">-- Select Issue --</option>
+            <option value="Translation Problem">Translation Problem</option>
+            <option value="Voice Cloning">Voice Cloning</option>
+            <option value="Subtitles Missing">Subtitles Missing</option>
+            <option value="Audio Sync Issue">Audio Sync Issue</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="description">Describe the issue</label>
+          <textarea id="description" name="description" rows="5" placeholder="Enter details here..." required></textarea>
+        </div>
+        <button type="submit" id="submitBtn" class="hybrid-proofread-btn">Submit Hybrid Proofread</button>
+      </form>
+    </div>
+  </main>
+  <script src="/js/dashboard-hybrid-proofread.js" type="module"></script>
+  <script src="/navbar/script.js"></script>
+</body>
+</html>

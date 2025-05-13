@@ -1,0 +1,64 @@
+/* Basic Notification Styling (add to your CSS) */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 20px;
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  min-width: 250px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.notification.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+.notification.success { background-color: #28a745; }
+.notification.info { background-color: #17a2b8; }
+.notification.error { background-color: #dc3545; }
+.notification-icon { font-size: 1.2em; }
+.notification-message { flex-grow: 1; }
+
+/* Basic Dropdown Styling (if not using Bootstrap or similar) */
+.dropdown {
+    position: relative;
+    display: inline-block; /* Or block if it should take full width */
+}
+.dropdown-menu {
+    display: none; /* Hidden by default */
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 0.375rem; /* Tailwind's rounded-md */
+    padding: 0.5rem 0; /* Tailwind's py-2 */
+}
+.dropdown-menu .dropdown-item {
+    color: black;
+    padding: 0.5rem 1rem; /* Tailwind's px-4 py-2 */
+    text-decoration: none;
+    display: block;
+    font-size: 0.875rem; /* Tailwind's text-sm */
+}
+.dropdown-menu .dropdown-item:hover {
+    background-color: #e9ecef; /* Tailwind's gray-200 */
+}
+.dark .dropdown-menu {
+    background-color: #374151; /* Tailwind's dark:bg-gray-700 */
+}
+.dark .dropdown-menu .dropdown-item {
+    color: #f3f4f6; /* Tailwind's dark:text-gray-100 */
+}
+.dark .dropdown-menu .dropdown-item:hover {
+    background-color: #4b5563; /* Tailwind's dark:bg-gray-600 */
+}
+
+/* Ensure Font Awesome is loaded for icons */

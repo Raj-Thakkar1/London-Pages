@@ -16,6 +16,7 @@ const { addFfmpegJob } = require('../ffmpegQueue');
 const { v4: uuidv4 } = require('uuid');
 const logger = require('../logger');
 const axios = require('axios');
+const archiver = require('archiver');
 
 ffmpeg.setFfmpegPath(ffmpegStatic);
 ffmpeg.setFfprobePath(ffprobeStatic.path);
@@ -25,7 +26,12 @@ function requireLogin(req, res, next) {
   if (req.cookies && req.cookies.loggedIn === "true") {
     next();
   } else {
-    res.redirect('/login');
+    // If AJAX/API request, respond with JSON
+    if (req.originalUrl.startsWith('/api/') || req.headers.accept?.includes('application/json')) {
+      return res.status(401).json({ success: false, message: 'Authentication required.' });
+    } else {
+      res.redirect('/login');
+    }
   }
 }
 
@@ -47,17 +53,8 @@ const uploadHandler = async (req, res, next) => {
           });
         });
         // Find the first video stream
-        const videoStream = (probeData.streams || []).find(s => s.codec_type === 'video');
-        if (videoStream && videoStream.height > 2160) {
-          // Reject videos above 4K
-          fs.unlinkSync(req.file.path);
-          logger.warn('Rejected video upload: resolution above 4K', { height: videoStream.height });
-          const isAjax = req.xhr || req.headers.accept?.includes('application/json');
-          if (isAjax) {
-            return res.status(400).json({ success: false, message: "Video resolution above 4K is not accepted." });
-          }
-          return res.redirect('/dashboard/creator-upload-error?message=' + encodeURIComponent("Video resolution above 4K is not accepted."));
-        }
+        // (Removed: if (videoStream && videoStream.height > 2160) { ... })
+        // No longer rejecting videos above 4K
       } catch (err) {
         logger.error('Error during video resolution check', { error: err });
         if (req.file && req.file.path) cleanupTempFile(req.file.path);
@@ -262,6 +259,16 @@ router.post(
     let duration = { minutes: 0, seconds: 0 };
     try {
       duration = await getVideoDuration(req.file.path);
+      // Reject if video is longer than 2.5 hours (9000 seconds)
+      const totalSeconds = (duration.minutes * 60) + duration.seconds;
+      if (totalSeconds > 9000) {
+        logger.warn('Rejected video upload: duration exceeds 2.5 hours', { duration });
+        cleanupTempFile(req.file.path);
+        if (isAjax) {
+          return res.status(400).json({ success: false, message: "Video duration exceeds 2.5 hours (150 minutes)." });
+        }
+        return res.redirect('/dashboard/creator-upload-error?message=' + encodeURIComponent("Video duration exceeds 2.5 hours (150 minutes)."));
+      }
     } catch (err) {
       logger.error('Error retrieving video duration', { error: err });
       cleanupTempFile(req.file.path);
@@ -618,6 +625,525 @@ router.get('/api/creator-videos-submitted', requireLogin, async (req, res) => {
   } catch (error) {
     logger.error('Error fetching user videos', { error });
     res.status(500).json({ videos: [], error: 'Failed to fetch videos' });
+  }
+});
+
+// GET route for downloading translated video from Elevenlabs
+router.get('/download-video', requireLogin, async (req, res) => {
+  const fileId = req.query.fileId;
+  if (!fileId) {
+    return res.status(400).send("No fileId provided.");
+  }
+
+  try {
+    // Get video details from Firestore
+    const videoDoc = await db.collection('uploadedFiles').doc(fileId).get();
+    if (!videoDoc.exists) {
+      return res.status(404).send("Video not found");
+    }
+
+    const videoData = videoDoc.data();
+    if (!videoData.elevenLabsJob || !videoData.elevenLabsJob.id) {
+      return res.status(400).send("No Elevenlabs job ID found for this video");
+    }
+
+    // Call Elevenlabs API to get the video
+    const apiKey = process.env.ELEVENLABS_API_KEY;
+    if (!apiKey) throw new Error('Missing ElevenLabs API key');
+
+    const downloadUrl = `https://api.elevenlabs.io/v1/dubbing/jobs/${videoData.elevenLabsJob.id}/download`;
+    const response = await axios({
+      method: 'GET',
+      url: downloadUrl,
+      headers: {
+        'xi-api-key': apiKey
+      },
+      responseType: 'stream'
+    });
+
+    // Set headers for video download
+    res.setHeader('Content-Disposition', `attachment; filename="${videoData.fileName}"`);
+    res.setHeader('Content-Type', 'video/mp4');
+    res.setHeader('Transfer-Encoding', 'chunked');
+
+    // Pipe the video stream to response
+    response.data.pipe(res);
+
+  } catch (error) {
+    logger.error('Error downloading video from Elevenlabs', { error });
+    if (!res.headersSent) {
+      res.status(500).send("Error downloading video");
+    }
+  }
+});
+
+// GET route for downloading audio from Elevenlabs
+router.get('/download-audio', requireLogin, async (req, res) => {
+  const fileId = req.query.fileId;
+  if (!fileId) {
+    return res.status(400).send("No fileId provided.");
+  }
+
+  try {
+    // Get video details from Firestore
+    const videoDoc = await db.collection('uploadedFiles').doc(fileId).get();
+    if (!videoDoc.exists) {
+      return res.status(404).send("Video not found");
+    }
+
+    const videoData = videoDoc.data();
+    if (!videoData.elevenLabsJob || !videoData.elevenLabsJob.id) {
+      return res.status(400).send("No Elevenlabs job ID found for this video");
+    }
+
+    // Call Elevenlabs API to get the video first
+    const apiKey = process.env.ELEVENLABS_API_KEY;
+    if (!apiKey) throw new Error('Missing ElevenLabs API key');
+
+    const downloadUrl = `https://api.elevenlabs.io/v1/dubbing/jobs/${videoData.elevenLabsJob.id}/download`;
+    
+    // Create temp directory for processing
+    const tempDir = path.join(__dirname, '..', 'uploads', `audio-${Date.now()}`);
+    const tempVideoPath = path.join(tempDir, `temp-${Date.now()}.mp4`);
+    const tempAudioPath = path.join(tempDir, `output-${Date.now()}.mp3`);
+
+    if (!fs.existsSync(tempDir)) {
+      fs.mkdirSync(tempDir, { recursive: true });
+    }
+
+    // Download video to temp file
+    const writer = fs.createWriteStream(tempVideoPath);
+    const response = await axios({
+      method: 'GET',
+      url: downloadUrl,
+      headers: {
+        'xi-api-key': apiKey
+      },
+      responseType: 'stream'
+    });
+
+    await new Promise((resolve, reject) => {
+      response.data.pipe(writer);
+      writer.on('finish', resolve);
+      writer.on('error', reject);
+    });
+
+    // Extract audio using ffmpeg
+    await new Promise((resolve, reject) => {
+      ffmpeg(tempVideoPath)
+        .toFormat('mp3')
+        .on('end', resolve)
+        .on('error', reject)
+        .save(tempAudioPath);
+    });
+
+    // Stream the audio file
+    res.setHeader('Content-Disposition', `attachment; filename="${videoData.fileName.replace(/\.[^/.]+$/, '')}.mp3"`);
+    res.setHeader('Content-Type', 'audio/mpeg');
+    res.setHeader('Transfer-Encoding', 'chunked');
+
+    const readStream = fs.createReadStream(tempAudioPath);
+    readStream.pipe(res);
+
+    // Cleanup after streaming is done
+    readStream.on('end', () => {
+      cleanupTempFile(tempVideoPath);
+      cleanupTempFile(tempAudioPath);
+      fs.rmdirSync(tempDir, { recursive: true });
+    });
+
+  } catch (error) {
+    logger.error('Error downloading/extracting audio', { error });
+    if (!res.headersSent) {
+      res.status(500).send("Error processing audio");
+    }
+  }
+});
+
+// GET route for downloading transcripts from Elevenlabs
+router.get('/download-transcript', requireLogin, async (req, res) => {
+  const fileId = req.query.fileId;
+  const type = req.query.type; // 'original' or 'translated'
+
+  if (!fileId) {
+    return res.status(400).send("No fileId provided.");
+  }
+
+  if (!type || !['original', 'translated'].includes(type)) {
+    return res.status(400).send("Invalid transcript type. Must be 'original' or 'translated'.");
+  }
+
+  try {
+    // Get video details from Firestore
+    const videoDoc = await db.collection('uploadedFiles').doc(fileId).get();
+    if (!videoDoc.exists) {
+      return res.status(404).send("Video not found");
+    }
+
+    const videoData = videoDoc.data();
+    if (!videoData.elevenLabsJob || !videoData.elevenLabsJob.id) {
+      return res.status(400).send("No Elevenlabs job ID found for this video");
+    }
+
+    // Call Elevenlabs API to get the transcript
+    const apiKey = process.env.ELEVENLABS_API_KEY;
+    if (!apiKey) throw new Error('Missing ElevenLabs API key');
+
+    const jobId = videoData.elevenLabsJob.id;
+    const endpoint = `https://api.elevenlabs.io/v1/dubbing/jobs/${jobId}/transcript/${type}`;
+
+    const response = await axios({
+      method: 'GET',
+      url: endpoint,
+      headers: {
+        'xi-api-key': apiKey
+      },
+      responseType: 'json'
+    });
+
+    // Send the transcript as a downloadable file
+    const transcriptText = response.data.text;
+    const fileName = `${type === 'original' ? 'original' : 'translated'}-transcript-${videoData.fileName.replace(/\.[^/.]+$/, '')}.txt`;
+    
+    res.setHeader('Content-Type', 'text/plain');
+    res.setHeader('Content-Disposition', `attachment; filename=${fileName}`);
+    res.send(transcriptText);
+
+  } catch (error) {
+    logger.error('Error downloading transcript from Elevenlabs', { error });
+    if (!res.headersSent) {
+      res.status(500).send(`Error downloading ${type} transcript: ${error.message}`);
+    }
+  }
+});
+
+// GET route for downloading both transcripts as a zip file
+router.get('/download-transcripts-zip', requireLogin, async (req, res) => {
+  const fileId = req.query.fileId;
+  if (!fileId) {
+    return res.status(400).send("No fileId provided.");
+  }
+
+  try {
+    // Get video details from Firestore
+    const videoDoc = await db.collection('uploadedFiles').doc(fileId).get();
+    if (!videoDoc.exists) {
+      return res.status(404).send("Video not found");
+    }
+    const videoData = videoDoc.data();
+    if (!videoData.elevenLabsJob || !videoData.elevenLabsJob.id) {
+      return res.status(400).send("No Elevenlabs job ID found for this video");
+    }
+    const apiKey = process.env.ELEVENLABS_API_KEY;
+    if (!apiKey) throw new Error('Missing ElevenLabs API key');
+    const jobId = videoData.elevenLabsJob.id;
+
+    // Helper to fetch transcript
+    async function fetchTranscript(type) {
+      const endpoint = `https://api.elevenlabs.io/v1/dubbing/jobs/${jobId}/transcript/${type}`;
+      const response = await axios({
+        method: 'GET',
+        url: endpoint,
+        headers: { 'xi-api-key': apiKey },
+        responseType: 'json'
+      });
+      return response.data.text;
+    }
+
+    // Fetch both transcripts
+    const [originalTranscript, translatedTranscript] = await Promise.all([
+      fetchTranscript('original'),
+      fetchTranscript('translated')
+    ]);
+
+    // Set up zip stream
+    res.setHeader('Content-Type', 'application/zip');
+    res.setHeader('Content-Disposition', `attachment; filename=transcripts-${videoData.fileName.replace(/\.[^/.]+$/, '')}.zip`);
+    const archive = archiver('zip', { zlib: { level: 9 } });
+    archive.pipe(res);
+    archive.append(originalTranscript, { name: `original-transcript-${videoData.fileName.replace(/\.[^/.]+$/, '')}.txt` });
+    archive.append(translatedTranscript, { name: `translated-transcript-${videoData.fileName.replace(/\.[^/.]+$/, '')}.txt` });
+    archive.finalize();
+  } catch (error) {
+    logger.error('Error creating transcript zip', { error });
+    if (!res.headersSent) {
+      res.status(500).send("Error downloading transcripts as zip");
+    }
+  }
+});
+
+// === AI Proofread API Endpoints ===
+// GET: Analyze transcript and return segments & cost
+router.get('/api/ai-proofread-init', requireLogin, async (req, res) => {
+  const userEmail = req.cookies.userEmail;
+  const videoId = req.query.videoId;
+  if (!userEmail || !videoId) {
+    return res.status(400).json({ error: 'Missing user or video ID' });
+  }
+  try {
+    // Fetch video doc
+    const videoDoc = await db.collection('uploadedFiles').doc(videoId).get();
+    if (!videoDoc.exists) return res.status(404).json({ error: 'Video not found' });
+    const videoData = videoDoc.data();
+    if (!videoData.elevenLabsJob || !videoData.elevenLabsJob.id) {
+      return res.status(400).json({ error: 'No Elevenlabs job ID found for this video' });
+    }
+    const apiKey = process.env.ELEVENLABS_API_KEY;
+    if (!apiKey) throw new Error('Missing ElevenLabs API key');
+    const jobId = videoData.elevenLabsJob.id;
+    // Fetch both transcripts from ElevenLabs
+    const [originalResp, translatedResp] = await Promise.all([
+      axios({
+        method: 'GET',
+        url: `https://api.elevenlabs.io/v1/dubbing/jobs/${jobId}/transcript/original`,
+        headers: { 'xi-api-key': apiKey },
+        responseType: 'json'
+      }),
+      axios({
+        method: 'GET',
+        url: `https://api.elevenlabs.io/v1/dubbing/jobs/${jobId}/transcript/translated`,
+        headers: { 'xi-api-key': apiKey },
+        responseType: 'json'
+      })
+    ]);
+    const originalTranscript = originalResp.data.text;
+    const translatedTranscript = translatedResp.data.text;
+    // === Connect to AI to analyze segments ===
+    // Example: OpenAI API call (replace with your AI provider as needed)
+    const openaiApiKey = process.env.OPENAI_API_KEY;
+    if (!openaiApiKey) throw new Error('Missing OpenAI API key');
+    const aiPrompt = `You are an expert proofreader. Compare the following original and translated transcripts. Identify the segment numbers in the translated transcript that need to be regenerated for accuracy and naturalness. Return ONLY a JSON array of segment indices (0-based) that need regeneration.\n\nOriginal Transcript:\n${originalTranscript}\n\nTranslated Transcript:\n${translatedTranscript}`;
+    const aiResp = await axios.post('https://api.openai.com/v1/chat/completions', {
+      model: 'gpt-4',
+      messages: [
+        { role: 'system', content: 'You are an expert proofreader for video transcripts.' },
+        { role: 'user', content: aiPrompt }
+      ],
+      max_tokens: 256,
+      temperature: 0.2
+    }, {
+      headers: {
+        'Authorization': `Bearer ${openaiApiKey}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    // Parse AI response for segment indices
+    let segmentsToRegenerate = [];
+    try {
+      const match = aiResp.data.choices[0].message.content.match(/\[.*\]/s);
+      if (match) segmentsToRegenerate = JSON.parse(match[0]);
+    } catch (e) {
+      segmentsToRegenerate = [];
+    }
+    if (!Array.isArray(segmentsToRegenerate)) segmentsToRegenerate = [];
+    const costPerSegment = 1; // 1 minute per segment (example)
+    const totalCost = segmentsToRegenerate.length * costPerSegment;
+    res.json({ segmentsToRegenerate: segmentsToRegenerate.length, costPerSegment, totalCost });
+  } catch (err) {
+    logger.error('AI Proofread Init Error', { error: err });
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST: Deduct minutes and start regeneration
+router.post('/api/ai-proofread-proceed', requireLogin, async (req, res) => {
+  const userEmail = req.cookies.userEmail;
+  const { videoId } = req.body;
+  if (!userEmail || !videoId) {
+    return res.status(400).json({ success: false, message: 'Missing user or video ID' });
+  }
+  try {
+    // Fetch user and video
+    const userSnapshot = await db.collection('users').where('email', '==', userEmail).limit(1).get();
+    if (userSnapshot.empty) return res.status(404).json({ success: false, message: 'User not found' });
+    const userDoc = userSnapshot.docs[0];
+    const userData = userDoc.data();
+    const videoDoc = await db.collection('uploadedFiles').doc(videoId).get();
+    if (!videoDoc.exists) return res.status(404).json({ success: false, message: 'Video not found' });
+    const videoData = videoDoc.data();
+    if (!videoData.elevenLabsJob || !videoData.elevenLabsJob.id) {
+      return res.status(400).json({ success: false, message: 'No Elevenlabs job ID found for this video' });
+    }
+    // Fetch both transcripts
+    const apiKey = process.env.ELEVENLABS_API_KEY;
+    const jobId = videoData.elevenLabsJob.id;
+    const [originalResp, translatedResp] = await Promise.all([
+      axios({
+        method: 'GET',
+        url: `https://api.elevenlabs.io/v1/dubbing/jobs/${jobId}/transcript/original`,
+        headers: { 'xi-api-key': apiKey },
+        responseType: 'json'
+      }),
+      axios({
+        method: 'GET',
+        url: `https://api.elevenlabs.io/v1/dubbing/jobs/${jobId}/transcript/translated`,
+        headers: { 'xi-api-key': apiKey },
+        responseType: 'json'
+      })
+    ]);
+    const originalTranscript = originalResp.data.text;
+    const translatedTranscript = translatedResp.data.text;
+    // === Connect to AI to get improved segments ===
+    const openaiApiKey = process.env.OPENAI_API_KEY;
+    if (!openaiApiKey) throw new Error('Missing OpenAI API key');
+    const aiPrompt = `You are an expert proofreader. Compare the following original and translated transcripts. Return ONLY a JSON object with the improved translated segments that need to be regenerated, in the form {"segments": [{"index": <number>, "text": <string>}]} where index is the segment number and text is the improved translation.\n\nOriginal Transcript:\n${originalTranscript}\n\nTranslated Transcript:\n${translatedTranscript}`;
+    const aiResp = await axios.post('https://api.openai.com/v1/chat/completions', {
+      model: 'gpt-4',
+      messages: [
+        { role: 'system', content: 'You are an expert proofreader for video transcripts.' },
+        { role: 'user', content: aiPrompt }
+      ],
+      max_tokens: 2048,
+      temperature: 0.2
+    }, {
+      headers: {
+        'Authorization': `Bearer ${openaiApiKey}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    // Parse AI response for improved segments
+    let improvedSegments = [];
+    try {
+      const match = aiResp.data.choices[0].message.content.match(/\{[\s\S]*\}/);
+      if (match) {
+        const obj = JSON.parse(match[0]);
+        improvedSegments = obj.segments || [];
+      }
+    } catch (e) {
+      improvedSegments = [];
+    }
+    if (!Array.isArray(improvedSegments) || improvedSegments.length === 0) {
+      return res.status(400).json({ success: false, message: 'AI did not return improved segments.' });
+    }
+    // Calculate cost
+    const costPerSegment = 1;
+    const totalCost = improvedSegments.length * costPerSegment;
+    const userMinutes = userData.translationMinutes || 0;
+    if (userMinutes < totalCost) {
+      return res.status(400).json({ success: false, message: 'Insufficient translation minutes.' });
+    }
+    // Deduct minutes
+    await userDoc.ref.update({ translationMinutes: userMinutes - totalCost });
+    // === Send improved segments to ElevenLabs API ===
+    // ElevenLabs expects PATCH to /v1/dubbing/jobs/{jobId}/transcript/translated/segments
+    await axios.patch(
+      `https://api.elevenlabs.io/v1/dubbing/jobs/${jobId}/transcript/translated/segments`,
+      { segments: improvedSegments },
+      { headers: { 'xi-api-key': apiKey, 'Content-Type': 'application/json' } }
+    );
+    // === Trigger regeneration in ElevenLabs ===
+    await axios.post(
+      `https://api.elevenlabs.io/v1/dubbing/jobs/${jobId}/regenerate`,
+      {},
+      { headers: { 'xi-api-key': apiKey } }
+    );
+    // Update video doc
+    await videoDoc.ref.update({ aiProofreadStatus: 'completed', aiProofreadCompleted: new Date(), aiProofreadSegments: improvedSegments.length });
+    res.json({ success: true });
+  } catch (err) {
+    logger.error('AI Proofread Proceed Error', { error: err });
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// Hybrid Proofread form route (renamed from request free edit)
+router.get('/hybrid-proofread', requireLogin, (req, res) => {
+  res.sendFile(path.join(__dirname, '../views/dashboard', 'creator-hybrid-proofread.html'));
+});
+
+// Hybrid Proofread form POST handler (renamed from request free edit)
+router.post('/hybrid-proofread', requireLogin, async (req, res) => {
+  // You can copy logic from the request-edit POST if needed, or add custom logic here
+  // For now, just redirect to dashboard with a success message
+  res.redirect('/dashboard/creator-dashboard?hybridProofread=success');
+});
+
+// Hybrid Proofread API route (AJAX)
+router.post('/api/hybrid-proofread', requireLogin, async (req, res) => {
+  try {
+    const { videoId, issueType, description } = req.body;
+    const userEmail = req.cookies.userEmail;
+    if (!videoId || !issueType || !description) {
+      return res.status(400).json({ success: false, message: 'Missing required fields.' });
+    }
+    // Add to Requested Edits collection
+    await db.collection('Requested Edits').add({
+      videoId,
+      issueType,
+      description,
+      userEmail,
+      timestamp: new Date()
+    });
+    // Set hybridRequested: true on the video document
+    await db.collection('uploadedFiles').doc(videoId).update({ hybridRequested: true });
+    return res.json({ success: true });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+// === Video Editor Page ===
+// Serve the video editor page
+router.get('/video-editor', requireLogin, (req, res) => {
+  res.sendFile(path.join(__dirname, '../views/dashboard', 'creator-video-editor.html'));
+});
+
+// API: Fetch transcript segments and video URL for editor
+router.get('/api/video-editor-data', requireLogin, async (req, res) => {
+  const videoId = req.query.videoId;
+  if (!videoId) return res.status(400).json({ error: 'Missing videoId' });
+  try {
+    // Get video doc
+    const videoDoc = await db.collection('uploadedFiles').doc(videoId).get();
+    if (!videoDoc.exists) return res.status(404).json({ error: 'Video not found' });
+    const videoData = videoDoc.data();
+    if (!videoData.elevenLabsJob || !videoData.elevenLabsJob.id) {
+      return res.status(400).json({ error: 'No ElevenLabs job ID found for this video' });
+    }
+    const apiKey = process.env.ELEVENLABS_API_KEY;
+    const jobId = videoData.elevenLabsJob.id;
+    // Fetch transcript segments from ElevenLabs
+    const transcriptResp = await axios.get(
+      `https://api.elevenlabs.io/v1/dubbing/jobs/${jobId}/transcript/translated`,
+      { headers: { 'xi-api-key': apiKey } }
+    );
+    // The ElevenLabs API returns segments as an array
+    const segments = transcriptResp.data.segments || [];
+    // Get video download URL (use our own endpoint for auth)
+    const videoUrl = `/dashboard/download-video?fileId=${videoId}`;
+    res.json({ segments, videoUrl });
+  } catch (err) {
+    logger.error('Error fetching video editor data', { error: err });
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// API: Save transcript edits (PATCH to ElevenLabs)
+router.patch('/api/video-editor-save', requireLogin, async (req, res) => {
+  const { videoId, segments } = req.body;
+  if (!videoId || !Array.isArray(segments)) {
+    return res.status(400).json({ error: 'Missing videoId or segments' });
+  }
+  try {
+    // Get video doc
+    const videoDoc = await db.collection('uploadedFiles').doc(videoId).get();
+    if (!videoDoc.exists) return res.status(404).json({ error: 'Video not found' });
+    const videoData = videoDoc.data();
+    if (!videoData.elevenLabsJob || !videoData.elevenLabsJob.id) {
+      return res.status(400).json({ error: 'No ElevenLabs job ID found for this video' });
+    }
+    const apiKey = process.env.ELEVENLABS_API_KEY;
+    const jobId = videoData.elevenLabsJob.id;
+    // PATCH segments to ElevenLabs
+    await axios.patch(
+      `https://api.elevenlabs.io/v1/dubbing/jobs/${jobId}/transcript/translated/segments`,
+      { segments },
+      { headers: { 'xi-api-key': apiKey, 'Content-Type': 'application/json' } }
+    );
+    res.json({ success: true });
+  } catch (err) {
+    logger.error('Error saving video editor transcript', { error: err });
+    res.status(500).json({ error: err.message });
   }
 });
 

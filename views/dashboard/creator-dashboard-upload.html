@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Creator Dashboard | Video Translation Platform</title>
   <link href="/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/dashboard-upload-modal.css">
+  <link rel="stylesheet" href="/css/style.css">  <link rel="stylesheet" href="/css/dashboard-upload-modal.css">
   <link rel="stylesheet" href="/css/dashboard-videos-translated.css">
+  <link rel="stylesheet" href="/css/dashboard-dropdown.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="/assets/css/custom-responsive.css">
   <link rel="stylesheet" href="/navbar/navbar.css">
+  <link rel="stylesheet" href="/css/notifications-style.css">
 </head>
 <body>
     <header>
@@ -105,9 +106,8 @@
                 class="fas fa-upload mr-2"></i> Choose File</label>
             <span id="videoFileName" class="ml-2 text-gray-700"></span>
             <p class="text-sm text-gray-500 mt-2">Supported formats: MP4, MOV, AVI.</p>
-            <p class="text-sm text-red-600 mt-1 font-semibold">Maximum file size supported: 5GB. Large files, above 1GB,
-              may take a little time.</p>
-            <p class="text-sm text-red-600 mt-1 font-semibold">Videos above 4K are not supported.</p>
+            <p class="text-sm text-red-600 mt-1 font-semibold">Maximum file size supported: 1GB.</p>
+            <p class="text-sm text-red-600 mt-1 font-semibold">Maximum video length: 2.5 hours (150 minutes).</p>
           </div>
           <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -174,11 +174,11 @@
       <p>&copy; 2025 London Pages | Video Translation Platform</p>
     </div>
   </footer>
-  <!-- Move all scripts here to ensure DOM is loaded before JS runs -->
+  <!-- Move all scripts here to ensure DOM is loaded before JS runs -->  <script src="/js/dashboard-dashboard.js" type="module"></script>
   <script src="/js/theme.js"></script>
-  <script src="/js/dashboard-dashboard.js" type="module"></script>
   <script src="/js/dashboard-upload-videos.js" type="module"></script>
   <script src="/js/dashboard-upload-modal.js"></script>
+  <script src="/js/dashboard-dropdown.js"></script>
   <script src="/navbar/script.js"></script>
 </body>
 </html>

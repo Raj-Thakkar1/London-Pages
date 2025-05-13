@@ -78,7 +78,7 @@ const upload = multer({
     files: 1,
     fieldSize: Infinity,
     fieldNameSize: 300,
-    fileSize: 5 * 1024 * 1024 * 1024 // 5GB limit
+    fileSize: 1 * 1024 * 1024 * 1024 // 1GB limit
   }
 });
 
